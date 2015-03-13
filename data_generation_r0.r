@@ -32,7 +32,7 @@ year = 1981
 
 #Generate year 1 randomly (because there isn't anything before it to go on):
 #First, we create the variable name.  This means the column will end up "NDVI_1981"
-col_name = paste("NDVI_",year)
+col_name = paste("NDVI_",year, sep="")
 
 #Now, we populate the column with a random value between 0 and 1- there are many ways to do this,
 #The below gives you the most explicit control (runif(1) does a much simpler version of this):
@@ -51,9 +51,9 @@ year = year + 1
 
 while (year <= 2014)
 {
-  col_name = paste("NDVI_",year)
+  col_name = paste("NDVI_",year, sep="")
   last_year = year - 1
-  last_year_name = paste("NDVI_",last_year)
+  last_year_name = paste("NDVI_",last_year, sep="")
   
   #Declare the new column to be similar to last year, based on an entirely arbitrary
   #normal distribution centered on 0 to at least allow for *some* possible shocks.
@@ -69,4 +69,38 @@ while (year <= 2014)
 }
 
 #Assign every unit of observation a random "Entry Year" and "Accepted" year.
+#Note the slightly different use of sample here, as we want an integer (not a double [i.e., a decimal])
+KFW_poly@data["Entry_Year"] = sample(1995:2005, size=nrow(KFW_poly@data), replace=TRUE)
+KFW_poly@data["Accepted_Year"] = KFW_poly@data["Entry_Year"] + sample(1:9, size=nrow(KFW_poly@data), replace=TRUE)
+
+#Here we make up a fake dummy value for each state.  
+#This is so we can include it as a factor later (i.e., a Fixed Effect)
+#5 states are defined, entirely arbitrarily.
+KFW_poly@data["State"] = sample(1:5, size=nrow(KFW_poly@data), replace=TRUE)
+
+
+#We now have a dataset with the following relevant attributes:
+#Entry_Year - the year the treatment began
+#Accepted_Year - the year the community was accepted formally
+#NDVI_1981 to NDVI_2014 - mock NDVI data for each year
+#CommunityArea_Ha - the physical size of each community
+#State - an entirely made up state dummy, ranging from 1-5.
+
+#-----------------------------------------
+#-----------------------------------------
+#PSM
+#-----------------------------------------
+#-----------------------------------------
+#Calculate the NDVI trend pre-treatments:
+KFW_poly@data["NDVI_trend"] <- KFW_poly@data["NDVI_1995"] - KFW_poly@data["NDVI_1981"]
+
+#The PSM is based on the anticipated year of treatment.
+#In a crossectional, it is defined as:
+PSM_model = lm(Accepted_Year ~ Entry_Year + NDVI_trend + NDVI_1995 + CommunityArea_Ha + factor(State), data=KFW_poly@data)
+
+#View the model results:
+summary(PSM_model)
+
+
+
 
