@@ -1,3 +1,5 @@
+library(FNN) #For Knn calculations
+
 #Load in the shapefile generated via the data generation script.
 KFW_shp = "/home/aiddata/Desktop/R_Repo/KFW/Outputs/KFW_poly.shp"
 KFW_poly = readShapePoly(KFW_shp)
@@ -17,5 +19,65 @@ PSM_model = lm(Accepted_Y ~ Entry_Year + NDVI_trend + NDVI_1995 + CommunityA + f
 #View the model results:
 summary(PSM_model)
 
-#Run the model on our dataframe and record the PSM results (probability of receiving treatment)
-KFW_poly@data$PSM <- predict(PSM_model,KFW_poly@data)
+#Make copies of the dataframe for use in the PSM..
+f.SPDF <- KFW_poly
+
+#Run the model on our dataframe and record the PSM results (estimated year of treatment)
+f.SPDF@data$PSM <- predict(PSM_model,KFW_poly@data)
+
+#Create a new version of the data frame which records only matched pairs.
+#Further, add a column to keep track of the matches.
+m.SPDF = f.SPDF
+m.SPDF$match = 0
+
+#add an ID column to track matches in the m.SPDF frame, and to remove from f.SPDF  
+m.SPDF$PSM_ID <- seq_len(nrow(m.SPDF))
+f.SPDF$PSM_ID <- seq_len(nrow(f.SPDF))
+
+#add a distance column to track the PSM distance for later analysis
+m.SPDF$PSM_distance <- -1
+
+#add a match pair so we can view what was matched with what.
+m.SPDF$PSM_match_ID <- -1
+
+#Count the total number of areas we're matching (/2, as each match excludes two areas)
+cnt = length(m.SPDF) / 2
+
+#Loop through all treatment cases to find a match.
+for (j in 1:cnt)
+{
+  
+  #Run the KNN for all neighbors.  We want to optimize the total distance between all units PSM scores
+  #to be as low as possible.  Thus, we run the full set, choose the lowest distance, drop both pairs, repeat.
+  #Note we calculate both the 1st closest neighbor (always yourself) and the second closest to make referencing
+  #easier...
+  k <- get.knnx(f.SPDF@data$PSM, f.SPDF@data$PSM, 2)
+
+  #Add the matched treatment and control values to the m.SPDF data frame
+  best_m = as.matrix(apply(k$nn.dist, 2, which.min))[2]
+  
+  #Control PSM ID
+  Control_ID = f.SPDF@data$PSM_ID[as.matrix(apply(k$nn.dist, 2, which.min))[2]]
+  
+  
+  #Treatment PSM ID
+  k_match_id = k[[1]][best_m,][2]
+  Treatment_ID = f.SPDF@data$PSM_ID[k_match_id]
+  
+  
+  #Add the Treatment ID to the Control Row 
+  m.SPDF@data$match[which(m.SPDF@data$PSM_ID == Control_ID)] = Treatment_ID
+  m.SPDF@data$PSM_distance[which(m.SPDF@data$PSM_ID == Control_ID)] = k$nn.dist[,2][k_match_id]
+  m.SPDF@data$PSM_match_ID[which(m.SPDF@data$PSM_ID == Control_ID)] = j
+  
+  #Add the Control ID to the Treatment Row
+  m.SPDF@data$match[which(m.SPDF@data$PSM_ID == Treatment_ID)] = Control_ID
+  m.SPDF@data$PSM_distance[which(m.SPDF@data$PSM_ID == Treatment_ID)] = k$nn.dist[,2][k_match_id]
+  m.SPDF@data$PSM_match_ID[which(m.SPDF@data$PSM_ID == Treatment_ID)] = j
+  
+  #Drop the paired match out of the f.SPDF matrix 
+  f.SPDF@data <- f.SPDF@data[f.SPDF@data$PSM_ID != Treatment_ID ,]
+  f.SPDF@data <- f.SPDF@data[f.SPDF@data$PSM_ID != Control_ID ,]
+  
+}
+
