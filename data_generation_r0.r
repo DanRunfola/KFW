@@ -21,9 +21,6 @@ KFW_poly@data$terrai_are <- as.double(KFW_poly@data$terrai_are)
 #Rename the field so we can reference it easier, later.
 names(KFW_poly@data)[names(KFW_poly@data) == 'terrai_are'] <- "CommunityArea_Ha" 
 
-#Set a seed so that the data can be re-created..
-set.seed("427", kind=NULL, normal.kind=NULL)
-
 #For now, create an imaginary NDVI value for each year between 1981 and 2013.
 #First, initialize a counter to track the "year" we are creating data for.
 year = 1981
@@ -84,31 +81,15 @@ KFW_poly@data["State"] = sample(1:5, size=nrow(KFW_poly@data), replace=TRUE)
 
 #We now have a dataset with the following relevant attributes:
 #Entry_Year - the year the treatment began
-#Accepted_Year - the year the community was accepted formally
+#Accepted_Y - the year the community was accepted formally
 #NDVI_1981 to NDVI_2014 - mock NDVI data for each year
-#CommunityArea_Ha - the physical size of each community
+#CommunityA - the physical size of each community (Ha)
 #State - an entirely made up state dummy, ranging from 1-5.
 
 #Save the file to a shapefile for analysis in other programs.
 writePolyShape(KFW_poly,"/home/aiddata/Desktop/R_Repo/KFW/Outputs/KFW_poly")
 
-#-----------------------------------------
-#-----------------------------------------
-#PSM
-#-----------------------------------------
-#-----------------------------------------
-#Calculate the NDVI trend pre-treatments:
-KFW_poly@data["NDVI_trend"] <- KFW_poly@data["NDVI_1995"] - KFW_poly@data["NDVI_1981"]
 
-#The PSM is based on the anticipated year of treatment.
-#In a crossectional, it is defined as:
-PSM_model = lm(Accepted_Year ~ Entry_Year + NDVI_trend + NDVI_1995 + CommunityArea_Ha + factor(State), data=KFW_poly@data)
-
-#View the model results:
-summary(PSM_model)
-
-#Run the model on our dataframe and record the PSM results (probability of receiving treatment)
-KFW_poly@data$PSM <- predict(PSM_model,KFW_poly@data)
 
 
 
