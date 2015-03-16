@@ -21,6 +21,9 @@ KFW_poly@data$terrai_are <- as.double(KFW_poly@data$terrai_are)
 #Rename the field so we can reference it easier, later.
 names(KFW_poly@data)[names(KFW_poly@data) == 'terrai_are'] <- "CommunityArea_Ha" 
 
+#Set a seed so that the data can be re-created..
+set.seed("427", kind=NULL, normal.kind=NULL)
+
 #For now, create an imaginary NDVI value for each year between 1981 and 2013.
 #First, initialize a counter to track the "year" we are creating data for.
 year = 1981
@@ -86,6 +89,10 @@ KFW_poly@data["State"] = sample(1:5, size=nrow(KFW_poly@data), replace=TRUE)
 #CommunityArea_Ha - the physical size of each community
 #State - an entirely made up state dummy, ranging from 1-5.
 
+#Save the file to a CSV and shapefile for analysis in other programs.
+write.table(KFW_poly@data, file="/home/aiddata/Desktop/R_Repo/KFW/Outputs/KFW_poly.csv", sep=",")
+writePolyShape(KFW_poly,"/home/aiddata/Desktop/R_Repo/KFW/Outputs/KFW_poly")
+
 #-----------------------------------------
 #-----------------------------------------
 #PSM
@@ -100,6 +107,10 @@ PSM_model = lm(Accepted_Year ~ Entry_Year + NDVI_trend + NDVI_1995 + CommunityAr
 
 #View the model results:
 summary(PSM_model)
+
+#Run the model on our dataframe and record the PSM results (probability of receiving treatment)
+KFW_poly@data$PSM <- predict(PSM_model,KFW_poly@data)
+
 
 
 
