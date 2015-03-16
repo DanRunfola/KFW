@@ -81,3 +81,38 @@ for (j in 1:cnt)
   
 }
 
+#Create a copy of the data to drop observations out of...
+KFW_df = m.SPDF
+
+#Drop any un-paired observations
+KFW_df@data <- KFW_df@data[KFW_df@data$PSM_match_ID != -1 ,]
+
+#Estimate the balance equations, and check if IVs of interest are significant...
+IVA = lm(Entry_Year ~ Accepted_Y + factor(PSM_match_ID), KFW_df)
+IVA_pVal = summary(IVA)$coefficients[,4][[2]]
+
+IVB = lm(NDVI_trend ~ Accepted_Y + factor(PSM_match_ID), KFW_df)
+IVB_pVal = summary(IVB)$coefficients[,4][[2]]
+
+IVC = lm(NDVI_1995 ~ Accepted_Y + factor(PSM_match_ID), KFW_df)
+IVC_pVal = summary(IVC)$coefficients[,4][[2]]
+
+IVD = lm(CommunityA ~ Accepted_Y + factor(PSM_match_ID), KFW_df)
+IVD_pVal = summary(IVD)$coefficients[,4][[2]]
+
+print("Significance Tests for Each Balance Test:")
+print("IVA:")
+print(IVA_pVal)
+print("IVB:")
+print(IVB_pVal)
+print("IVC:")
+print(IVC_pVal)
+print("IVD:")
+print(IVD_pVal)
+
+#Finally, estimate the final stage equation
+KFW_df@data$NDVI_Outcome = (KFW_df@data$NDVI_2014 - KFW_df@data$NDVI_1995)
+
+Bmodel = lm(NDVI_Outcome ~ Accepted_Y + Entry_Year + CommunityA + factor(State) + factor(PSM_match_ID), KFW_df@data)
+
+summary(Bmodel)
