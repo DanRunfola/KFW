@@ -89,8 +89,7 @@ KFW_poly@data["State"] = sample(1:5, size=nrow(KFW_poly@data), replace=TRUE)
 #CommunityArea_Ha - the physical size of each community
 #State - an entirely made up state dummy, ranging from 1-5.
 
-#Save the file to a CSV and shapefile for analysis in other programs.
-write.table(KFW_poly@data, file="/home/aiddata/Desktop/R_Repo/KFW/Outputs/KFW_poly.csv", sep=",")
+#Save the file to a shapefile for analysis in other programs.
 writePolyShape(KFW_poly,"/home/aiddata/Desktop/R_Repo/KFW/Outputs/KFW_poly")
 
 #-----------------------------------------
