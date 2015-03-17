@@ -1,3 +1,5 @@
+library(sp) #spatial data handling
+library(GISTools)
 library(FNN) #For Knn calculations
 
 #Load in the shapefile generated via the data generation script.
