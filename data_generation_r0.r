@@ -1,3 +1,4 @@
+
 #Data Generation Script for KFW
 
 #This script will eventually load all data into a primary database for analysis
@@ -70,13 +71,25 @@ while (year <= 2014)
 
 #Assign every unit of observation a random "Entry Year" and "Accepted" year.
 #Note the slightly different use of sample here, as we want an integer (not a double [i.e., a decimal])
-KFW_poly@data["Entry_Year"] = sample(1995:2005, size=nrow(KFW_poly@data), replace=TRUE)
-KFW_poly@data["Accepted_Year"] = KFW_poly@data["Entry_Year"] + sample(1:9, size=nrow(KFW_poly@data), replace=TRUE)
+#KFW_poly@data["Entry_Year"] = sample(1995:2005, size=nrow(KFW_poly@data), replace=TRUE)
+#KFW_poly@data["Accepted_Year"] = KFW_poly@data["Entry_Year"] + sample(1:9, size=nrow(KFW_poly@data), replace=TRUE)
+
+#Joining in the true Entry year and Approval year for each Indigenous Land
+ind.DF <- read.csv("/home/aiddata/Desktop/R_Repo/KFW/Input_Data/IndigenousLands_FUNAIFinal2008_2006_data.csv")
+KFW_poly <- merge(KFW_poly, ind.DF, by.x="reu_id", by.y="reu_id", all.x=TRUE) 
+ind.DF$compat <- ind.DF$reu_id %in% KFW_poly@data$reu_id
+
+#Rename Variables:
+#Entry Year:
+KFW_poly@data["Entry_Year"] = KFW_poly@data["IdentStart_y"]
+
+#Accepted Year:
+KFW_poly@data["Accepted_Year"] = KFW_poly@data["ApprEnd_y"]
 
 #Here we make up a fake dummy value for each state.  
 #This is so we can include it as a factor later (i.e., a Fixed Effect)
 #5 states are defined, entirely arbitrarily.
-KFW_poly@data["State"] = sample(1:5, size=nrow(KFW_poly@data), replace=TRUE)
+KFW_poly@data["State"] = KFW_poly@data["UF"]
 
 
 #We now have a dataset with the following relevant attributes:

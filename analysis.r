@@ -14,9 +14,12 @@ KFW_poly = readShapePoly(KFW_shp)
 #Calculate the NDVI trend pre-treatments:
 KFW_poly@data["NDVI_trend"] <- KFW_poly@data["NDVI_1995"] - KFW_poly@data["NDVI_1981"]
 
+#Potential: different measurements beyond simple differential. (3 bins, polynomials)
+
 #The PSM is based on the anticipated year of treatment.
 #In a crossectional, it is defined as:
-PSM_model = lm(Accepted_Y ~ Entry_Year + NDVI_trend + NDVI_1995 + CommunityA + factor(State), data=KFW_poly@data)
+PSM_model = lm(Accepted_Y ~ NDVI_trend + NDVI_1995 + CommunityA + factor(State), data=KFW_poly@data)
+
 
 #View the model results:
 summary(PSM_model)
@@ -114,6 +117,10 @@ print(IVD_pVal)
 
 #Finally, estimate the final stage equation
 KFW_df@data$NDVI_Outcome = (KFW_df@data$NDVI_2014 - KFW_df@data$NDVI_1995)
+
+#Average NDVI over period, bins of when we think deforestation occured - how dow e get around the
+#just endpoints data.
+#Explore the panel data.
 
 Bmodel = lm(NDVI_Outcome ~ Accepted_Y + Entry_Year + CommunityA + factor(State) + factor(PSM_match_ID), KFW_df@data)
 
