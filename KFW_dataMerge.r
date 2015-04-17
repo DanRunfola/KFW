@@ -48,7 +48,7 @@ for (i in 2:length(GIMMS_cont))
 #Merge
 kfw.SPDF <- merge(kfw.SPDF, GIMMS_cont, by.x="id", by.y="id")
 
-NDVI_sub = kfw.SPDF@data[c(1,8:40)]
+NDVI_sub = kfw.SPDF@data[c(1,12:44)]
 names(NDVI_sub) <- sub("NDVI","",names(NDVI_sub))
 NDVI_long <- melt(NDVI_sub, id.vars=c("id"))
 
@@ -116,9 +116,9 @@ air_temp_min <- reshape(air_temp_ts_min, idvar=c("id"), direction="wide", timeva
 #Rename vars
 for (i in 2:length(air_temp_mean))
 {
-  colnames(air_temp_mean)[i] <- sub("value.","AirTemp_Mean_",colnames(air_temp_mean)[i])
-  colnames(air_temp_max)[i] <- sub("value.","AirTemp_Max_",colnames(air_temp_max)[i])
-  colnames(air_temp_min)[i] <- sub("value.","AirTemp_Min_",colnames(air_temp_min)[i])
+  colnames(air_temp_mean)[i] <- sub("value.","MeanT_",colnames(air_temp_mean)[i])
+  colnames(air_temp_max)[i] <- sub("value.","MaxT_",colnames(air_temp_max)[i])
+  colnames(air_temp_min)[i] <- sub("value.","MinT_",colnames(air_temp_min)[i])
 }
 
 #ggplot() + geom_point(data=air_temp_ts_mean, aes(x=value, y=variable_1, colour=factor(id))) + scale_fill_manual(values=c("blue","cyan4"))
@@ -154,9 +154,9 @@ precip_min <- reshape(precip_ts_min, idvar=c("id"), direction="wide", timevar="v
 #Rename vars
 for (i in 2:length(air_temp_mean))
 {
-  colnames(precip_mean)[i] <- sub("value.","Precip_Mean_",colnames(precip_mean)[i])
-  colnames(precip_max)[i] <- sub("value.","Precip_Max_",colnames(precip_max)[i])
-  colnames(precip_min)[i] <- sub("value.","Precip_Min_",colnames(precip_min)[i])
+  colnames(precip_mean)[i] <- sub("value.","MeanP_",colnames(precip_mean)[i])
+  colnames(precip_max)[i] <- sub("value.","MaxP_",colnames(precip_max)[i])
+  colnames(precip_min)[i] <- sub("value.","MinP_",colnames(precip_min)[i])
 }
 
 #ggplot() + geom_point(data=air_temp_ts_mean, aes(x=value, y=variable_1, colour=factor(id))) + scale_fill_manual(values=c("blue","cyan4"))
