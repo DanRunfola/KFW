@@ -5,11 +5,11 @@ library(ggplot2)
 
 
 #File for the KFW analysis
-shpfile = "Input_Data/Matched_Indigenous_Lands_id.shp"
+shpfile = "Input_Data/Matched_Indigenous_Lands_DemDates.shp"
 src_Shp = readShapePoly(shpfile)
 
 #Clean the source Shapefile to remove extra columns of data.
-cln_Shp <- src_Shp[,c("terrai_nom","terrai_are","reu_id","id")]
+cln_Shp <- src_Shp[,c("terrai_nom","terrai_are","reu_id","id","UF", "pop","demend_y","stagenum")]
 
 #Population -------------------------------------------
 GPW_pop <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/gpw/gpw_extract_merge.csv"
@@ -90,7 +90,7 @@ colnames(urb_trv)[2] <- "UrbTravTime"
 #Merge it in
 kfw.SPDF <- merge(kfw.SPDF, urb_trv, by.x="id", by.y="id")
 
-#Air Temperature
+#Air Temperature----------------------------------------------
 air_temp <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/terrestrial_air_temperature/air_temp_extract_merge.csv"
 air_temp <- read.csv(air_temp)
 
@@ -104,5 +104,65 @@ for (i in 2:length(air_temp))
   colnames(air_temp)[i] <- dt
 }
 
-air_temp_ts <- melt(air_temp_df,id="id")
+air_temp_ts <- melt(air_temp,id="id")
 air_temp_ts <- cSplit(air_temp_ts, "variable", "-")
+air_temp_ts_mean <- aggregate(value ~ variable_1 + id, air_temp_ts, FUN=mean)
+air_temp_ts_max <- aggregate(value ~ variable_1 + id, air_temp_ts, FUN=max)
+air_temp_ts_min <- aggregate(value ~ variable_1 + id, air_temp_ts, FUN=min)
+air_temp_mean <- reshape(air_temp_ts_mean, idvar=c("id"), direction="wide", timevar="variable_1")
+air_temp_max <- reshape(air_temp_ts_max, idvar=c("id"), direction="wide", timevar="variable_1")
+air_temp_min <- reshape(air_temp_ts_min, idvar=c("id"), direction="wide", timevar="variable_1")
+
+#Rename vars
+for (i in 2:length(air_temp_mean))
+{
+  colnames(air_temp_mean)[i] <- sub("value.","AirTemp_Mean_",colnames(air_temp_mean)[i])
+  colnames(air_temp_max)[i] <- sub("value.","AirTemp_Max_",colnames(air_temp_max)[i])
+  colnames(air_temp_min)[i] <- sub("value.","AirTemp_Min_",colnames(air_temp_min)[i])
+}
+
+#ggplot() + geom_point(data=air_temp_ts_mean, aes(x=value, y=variable_1, colour=factor(id))) + scale_fill_manual(values=c("blue","cyan4"))
+#Merge it in
+kfw.SPDF <- merge(kfw.SPDF, air_temp_mean, by.x="id", by.y="id")
+kfw.SPDF <- merge(kfw.SPDF, air_temp_max, by.x="id", by.y="id")
+kfw.SPDF <- merge(kfw.SPDF, air_temp_min, by.x="id", by.y="id")
+
+
+#Precipitation----------------------------------------------
+precip <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/terrestrial_precipitation/precip_extract_merge.csv"
+precip <- read.csv(precip)
+
+for (i in 2:length(precip))
+{
+  splt <- strsplit(colnames(precip)[i],"_")
+  splt[[1]][1] <- sub("X","",splt[[1]][1])
+  month = splt[[1]][2]
+  year = splt[[1]][1]
+  dt = paste(year,"-",month,sep="")
+  colnames(precip)[i] <- dt
+}
+
+precip_ts <- melt(precip,id="id")
+precip_ts <- cSplit(precip_ts, "variable", "-")
+precip_ts_mean <- aggregate(value ~ variable_1 + id, precip_ts, FUN=mean)
+precip_ts_max <- aggregate(value ~ variable_1 + id, precip_ts, FUN=max)
+precip_ts_min <- aggregate(value ~ variable_1 + id, precip_ts, FUN=min)
+precip_mean <- reshape(precip_ts_mean, idvar=c("id"), direction="wide", timevar="variable_1")
+precip_max <- reshape(precip_ts_max, idvar=c("id"), direction="wide", timevar="variable_1")
+precip_min <- reshape(precip_ts_min, idvar=c("id"), direction="wide", timevar="variable_1")
+
+#Rename vars
+for (i in 2:length(air_temp_mean))
+{
+  colnames(precip_mean)[i] <- sub("value.","Precip_Mean_",colnames(precip_mean)[i])
+  colnames(precip_max)[i] <- sub("value.","Precip_Max_",colnames(precip_max)[i])
+  colnames(precip_min)[i] <- sub("value.","Precip_Min_",colnames(precip_min)[i])
+}
+
+#ggplot() + geom_point(data=air_temp_ts_mean, aes(x=value, y=variable_1, colour=factor(id))) + scale_fill_manual(values=c("blue","cyan4"))
+#Merge it in
+kfw.SPDF <- merge(kfw.SPDF, precip_mean, by.x="id", by.y="id")
+kfw.SPDF <- merge(kfw.SPDF, precip_max, by.x="id", by.y="id")
+kfw.SPDF <- merge(kfw.SPDF, precip_min, by.x="id", by.y="id")
+
+writePolyShape(kfw.SPDF,"Processed_Data/Matched_Indigenous_Lands_DemResults.shp")
