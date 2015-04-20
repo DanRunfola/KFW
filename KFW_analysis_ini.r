@@ -34,11 +34,11 @@ dta_Shp@data["minP_10_95"] <- timeRangeAvg(dta_Shp@data,"MinP_",1995,2010)
 
 #Make a binary to test treatment..
 dta_Shp@data["TrtBin"] <- 0
-# dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 6] <- 1
-# dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 7] <- 1
-# dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 8] <- 1
+ dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 6] <- 1
+ dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 7] <- 1
+ dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 8] <- 1
 
-dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
+#dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
 
 dta_Shp@data$NA_check <- 0
 
@@ -56,11 +56,12 @@ meanP_95_82 + meanT_10_95 + meanP_10_95 + Slope + Elevation + NDVI_95_82 + UrbTr
 #Define the second-stage model
 analyticModel <- "NDVI_10_95 ~ TrtBin + terrai_are + Pop_1995 + meanT_95_82 + 
 meanP_95_82 + meanT_10_95 + meanP_10_95 + Slope + Elevation + NDVI_95_82 + UrbTravTim + NDVI1995 + factor(UF)"
+#factor(PSM_match_ID)
 
 
 
 psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="overlap",visual=TRUE)
 
 #Add in records for PFE
-psm_Pairs <- SAT::SpatialCausalDist(dta = psmRes, mtd = "fastNN", vars = psmModel, ids = "id", drop_unmatched = TRUE, drop_method = "None", drop_thresh=0.25, visual="TRUE")
+psm_Pairs <- SAT::SpatialCausalDist(dta = psmRes, mtd = "fastNN", vars = psmModel, ids = "id", drop_unmatched = TRUE, drop_method = "SD", drop_thresh=0.25, visual="TRUE")
 summary(lm(analyticModel,psm_Pairs))
