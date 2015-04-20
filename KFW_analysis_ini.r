@@ -52,10 +52,11 @@ dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 8] <- 1
 #Fix size..
 dta_Shp@data["terrai_are"] <- lapply(dta_Shp@data["terrai_are"], function(x) as.numeric(gsub("Ha","",x)))
 
-#Define the PSM model
+#Define the first stage PSM model
 psmModel <- "TrtBin ~ terrai_are + factor(UF) + Pop_1990 + Pop_2000 + meanT_95_82 + 
 meanP_95_82 + meanT_10_95 + meanP_10_95 + Slope + Elevation + NDVI_95_82 + UrbTravTim"
 
+#Define the second-stage model
 analyticModel <- "NDVI2010 ~ TrtBin + terrai_are + factor(UF) + Pop_1990 + Pop_2000 + meanT_95_82 + 
 meanP_95_82 + meanT_10_95 + meanP_10_95 + Slope + Elevation + NDVI_95_82 + UrbTravTim"
 
