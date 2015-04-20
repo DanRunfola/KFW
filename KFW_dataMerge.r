@@ -165,4 +165,7 @@ kfw.SPDF <- merge(kfw.SPDF, precip_mean, by.x="id", by.y="id")
 kfw.SPDF <- merge(kfw.SPDF, precip_max, by.x="id", by.y="id")
 kfw.SPDF <- merge(kfw.SPDF, precip_min, by.x="id", by.y="id")
 
+#Fix size..
+kfw.SPDF@data["terrai_are"] <- lapply(kfw.SPDF@data["terrai_are"], function(x) as.numeric(gsub("Ha","",x)))
+
 writePolyShape(kfw.SPDF,"Processed_Data/Matched_Indigenous_Lands_DemResults.shp")

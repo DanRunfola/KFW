@@ -1,7 +1,12 @@
+#This file shows the pre-processed and post-processed difference
+#in the full NDVI time series, after adjusting for chaging sensors
+#according to the algorithm found in the GIMMSNormalization repository.
+library(ggplot2)
+library(GISTools)
+library(reshape)
+library(splitstackshape)
 
-
-#File for the KFW analysis
-shpfile = "Input_Data/KFW/Matched_Indigenous_Lands_id.shp"
+shpfile = "Processed_Data/Matched_Indigenous_Lands_DemResults.shp"
 src_Shp = readShapePoly(shpfile)
 
 #Clean the source Shapefile to remove extra columns of data.
@@ -53,9 +58,8 @@ kfw.SPDF <- merge(kfw.SPDF, GIMMS_cont, by.x="id", by.y="id")
 
 NDVI_sub = kfw.SPDF@data[c(1,8:40)]
 names(NDVI_sub) <- sub("NDVI","",names(NDVI_sub))
-NDVI_long <- melt(NDVI_sub, id.vars=c("id"))
-
-ggplot(data=NDVI_long, aes(x=value, y=variable, colour=factor(id))) + scale_fill_manual(values=c("blue","cyan4"))
+NDVI_longA <- melt(NDVI_sub, id.vars=c("id"))
+ggplot() + geom_point(data=NDVI_longA, aes(x=value, y=variable, colour=factor(id))) + scale_fill_manual(values=c("blue","cyan4"))
 
 #=============================================================
 #Re-run the loads to correct the NDVI offset issue
@@ -106,8 +110,16 @@ kfw.SPDF <- merge(kfw.SPDF, GIMMS_cont, by.x="id", by.y="id")
 
 NDVI_sub = kfw.SPDF@data[c(1,8:40)]
 names(NDVI_sub) <- sub("NDVI","",names(NDVI_sub))
-NDVI_long <- melt(NDVI_sub, id.vars=c("id"))
+NDVI_longB <- melt(NDVI_sub, id.vars=c("id"))
 
-ggplot() + geom_point(data=NDVI_long, aes(x=value, y=variable, colour=factor(id))) + scale_fill_manual(values=c("blue","cyan4"))
+ggplot() + geom_point(data=NDVI_longB, aes(x=value, y=variable, colour=factor(id))) + scale_fill_manual(values=c("blue","cyan4"))
 
+
+#Compare means
+NDVI_longA["runID"] <- "Pre-Adjustment NDVI"
+NDVI_longB["runID"] <- "Post-Adjustment NDVI"
+
+NDVI_long <- rbind(NDVI_longA, NDVI_longB)
+
+ggplot(NDVI_long, aes(x=variable, y=value, group=runID, colour=factor(runID))) + stat_summary(fun.data="mean_cl_boot", geom="smooth",alpha=.25)
 
