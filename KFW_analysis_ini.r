@@ -14,6 +14,7 @@ dta_Shp = readShapePoly(shpfile)
 #Calculate NDVI pre-trend
 dta_Shp@data["NDVI_95_82"] <- dta_Shp@data["NDVI1995"] - dta_Shp@data["NDVI1982"] 
 dta_Shp@data["NDVI_10_95"] <- dta_Shp@data["NDVI2010"] - dta_Shp@data["NDVI1995"]
+dta_Shp@data["NDVIslpChg"] <- (dta_Shp@data["NDVI_10_95"] / 16) - (dta_Shp@data["NDVI_95_82"]/14)
 
 dta_Shp@data["NDVI_10_95_Percent"] <- dta_Shp@data["NDVI2010"] / dta_Shp@data["NDVI1995"]
 dta_Shp@data["NDVI_95_82_Percent"] <- dta_Shp@data["NDVI1995"] / dta_Shp@data["NDVI1982"]
@@ -51,33 +52,37 @@ int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
 
 dta_Shp <- int_Shp
 
-analyticModel <- "NDVI_10_95 ~ TrtBin + terrai_are + Pop_1995 + meanT_95_82 + 
-meanP_95_82 + meanT_10_95 + meanP_10_95 + Slope + Elevation + NDVI_95_82 + UrbTravTim + NDVI1995 + factor(PSM_match_ID)"
 
-#Levels equation - Raw NDVI 2010 as outcome
-psmModel <- "TrtBin ~ terrai_are + Pop_1990 + Pop_2000 + meanT_95_82 + MeanT_1995 + meanP_95_82 + MeanP_1995 +
-meanT_10_95 + MeanT_2010 + MeanP_2010 + meanP_10_95 + UrbTravTim + Slope + Elevation + NDVI1995 + NDVI_95_82"
-analyticModel <- "NDVI2010 ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + meanT_95_82 + MeanT_1995 + meanP_95_82 + MeanP_1995 +
-meanT_10_95 + MeanT_2010 + MeanP_2010 + meanP_10_95 + UrbTravTim + Slope + Elevation + NDVI1995 + NDVI_95_82 + factor(UF)"
 
-#Trend equation - NDVI 2010 as a percentage of NDVI 1995 as outcome.
+#NDVI 2010 as a percentage of NDVI 1995 as outcome.
 psmModel <- "TrtBin ~ terrai_are + Pop_1990 + Pop_2000 + meanT_95_82 + MeanT_1995 + meanP_95_82 + MeanP_1995 +
-meanT_10_95 + MeanT_2010 + MeanP_2010 + meanP_10_95 + UrbTravTim + Slope + Elevation + NDVI1995 + NDVI_95_82_Percent"
+meanT_10_95 + MeanT_2010 + MeanP_2010 + meanP_10_95 + Slope + Elevation + NDVI1995 + NDVI_95_82_Percent + factor(UF)"
 analyticModel <- "NDVI_10_95_Percent ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + meanT_95_82 + MeanT_1995 + meanP_95_82 + MeanP_1995 +
-meanT_10_95 + MeanT_2010 + MeanP_2010 + meanP_10_95 + UrbTravTim + Slope + Elevation + NDVI1995 + NDVI_95_82_Percent + factor(UF)"
+meanT_10_95 + MeanT_2010 + MeanP_2010 + meanP_10_95 + Slope + Elevation + NDVI_95_82_Percent + factor(UF)"
 
-#Trend equations
+#Change in slope
+psmModel <- "TrtBin ~ terrai_are + Pop_1990 + Pop_2000 + meanT_95_82 + MeanT_1995 + meanP_95_82 + MeanP_1995 +
+meanT_10_95 + MeanT_2010 + MeanP_2010 + meanP_10_95 + Slope + Elevation + NDVI1995 + NDVI_95_82_Percent + factor(UF)"
+analyticModel <- "NDVIslpChg ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + meanT_95_82 + MeanT_1995 + meanP_95_82 + MeanP_1995 +
+meanT_10_95 + MeanT_2010 + MeanP_2010 + meanP_10_95 + Slope + Elevation + NDVI_95_82_Percent + factor(PSM_match_ID) + NDVI1995"
 
 
-
-psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="lm",psmModel,drop="overlap",visual=FALSE)
+psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="none",visual=TRUE)
 
 #Add in records for PFE
 drop_set<- c(drop_unmatched=TRUE,drop_method="None",drop_thresh=0.25)
-psm_Pairs <- SAT::SpatialCausalDist_Binary(dta = psmRes, mtd = "fastNN",constraints=NULL,psm_eq = psmModel, ids = "id", drop_opts = drop_set, visual="TRUE", TrtBinColName="TrtBin")
-#constraints option: c(groups="UF")
+psm_Pairs <- SAT::SpatialCausalDist_Binary(dta = psmRes, mtd = "fastNN",constraints=c(groups="UF"),psm_eq = psmModel, ids = "id", drop_opts = drop_set, visual="TRUE", TrtBinColName="TrtBin")
+#
 m_fit <- lm(analyticModel,psm_Pairs)
 summary(m_fit)
-lm.beta(m_fit)
+texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Results")
 
+#Scale all of the data to get standardized coefficients...
+psm_PairsB <- psm_Pairs
+
+ind <- sapply(psm_PairsB@data, is.numeric)
+psm_PairsB@data[ind] <- lapply(psm_PairsB@data[ind],scale)
+m_fit <- lm(analyticModel,psm_PairsB)
+summary(m_fit)
+texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Z-Score Standardized Model")
 #writePolyShape(psm_Pairs,'/home/aiddata/Desktop/quickPairs.shp')
