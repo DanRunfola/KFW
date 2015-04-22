@@ -15,7 +15,7 @@ cln_Shp <- src_Shp[,c("terrai_nom","terrai_are","reu_id","id")]
 #Load in the data to join to the shapefile
 #======================================================
 #Population -------------------------------------------
-GPW_pop <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/gpw/gpw_extract_merge.csv"
+GPW_pop <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/gpw/extract_merge.csv"
 GPW_pop <- read.csv(GPW_pop)
 #Rename the columns for easier interpretation later..
 colnames(GPW_pop)[2] <- "Pop_1990"
@@ -25,7 +25,7 @@ colnames(GPW_pop)[4] <- "Pop_2000"
 kfw.SPDF <- merge(cln_Shp, GPW_pop, by.x="id", by.y="id")
 
 #Historic GIMMS NDVI
-GIMMS_hist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/historic_ndvi/historic_ndvi_extract_year_max.csv"
+GIMMS_hist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/historic_ndvi/merge_year_max.csv"
 GIMMS_hist <- read.csv(GIMMS_hist)
 #Rename columns...
 for (i in 2:length(GIMMS_hist))
@@ -36,7 +36,7 @@ for (i in 2:length(GIMMS_hist))
 kfw.SPDF <- merge(kfw.SPDF, GIMMS_hist, by.x="id", by.y="id")
 
 #Contemporary GIMMS NDVI
-GIMMS_cont <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ndvi/ndvi_extract_year_max.csv"
+GIMMS_cont <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ndvi/merge_year_max.csv"
 GIMMS_cont <- read.csv(GIMMS_cont)
 #Rename columns...
 for (i in 2:length(GIMMS_cont))
@@ -73,7 +73,7 @@ src_Shp = readShapePoly(shpfile)
 cln_Shp <- src_Shp[,c("terrai_nom","terrai_are","reu_id","id")]
 
 #Population -------------------------------------------
-GPW_pop <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/gpw/gpw_extract_merge.csv"
+GPW_pop <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/gpw/extract_merge.csv"
 GPW_pop <- read.csv(GPW_pop)
 #Rename the columns for easier interpretation later..
 colnames(GPW_pop)[2] <- "Pop_1990"
@@ -98,7 +98,7 @@ GIMMS_hist <- GIMMS_hist[-c(1)]
 kfw.SPDF <- merge(kfw.SPDF, GIMMS_hist, by.x="id", by.y="id")
 
 #Contemporary GIMMS NDVI
-GIMMS_cont <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ndvi/ndvi_extract_year_max.csv"
+GIMMS_cont <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ndvi/merge_year_max.csv"
 GIMMS_cont <- read.csv(GIMMS_cont)
 #Rename columns...
 for (i in 2:length(GIMMS_cont))
