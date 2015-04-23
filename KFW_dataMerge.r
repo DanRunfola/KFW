@@ -38,7 +38,7 @@ GIMMS_hist <- GIMMS_hist[-c(1)]
 kfw.SPDF <- merge(kfw.SPDF, GIMMS_hist, by.x="id", by.y="id")
 
 #Contemporary GIMMS NDVI
-GIMMS_cont <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ndvi/ndvi_extract_year_max.csv"
+GIMMS_cont <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ndvi/merge_year_max.csv"
 GIMMS_cont <- read.csv(GIMMS_cont)
 #Rename columns...
 for (i in 2:length(GIMMS_cont))
