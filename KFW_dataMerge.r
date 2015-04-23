@@ -12,7 +12,7 @@ src_Shp = readShapePoly(shpfile)
 cln_Shp <- src_Shp[,c("terrai_nom","terrai_are","reu_id","id","UF", "pop","demend_y","stagenum")]
 
 #Population -------------------------------------------
-GPW_pop <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/gpw/gpw_extract_merge.csv"
+GPW_pop <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/gpw/extract_merge.csv"
 GPW_pop <- read.csv(GPW_pop)
 #Rename the columns for easier interpretation later..
 colnames(GPW_pop)[2] <- "Pop_1990"
@@ -91,7 +91,7 @@ colnames(urb_trv)[2] <- "UrbTravTime"
 kfw.SPDF <- merge(kfw.SPDF, urb_trv, by.x="id", by.y="id")
 
 #Air Temperature----------------------------------------------
-air_temp <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/terrestrial_air_temperature/air_temp_extract_merge.csv"
+air_temp <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/terrestrial_air_temperature/extract_merge.csv"
 air_temp <- read.csv(air_temp)
 
 for (i in 2:length(air_temp))
@@ -129,7 +129,7 @@ kfw.SPDF <- merge(kfw.SPDF, air_temp_min, by.x="id", by.y="id")
 
 
 #Precipitation----------------------------------------------
-precip <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/terrestrial_precipitation/precip_extract_merge.csv"
+precip <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/terrestrial_precipitation/extract_merge.csv"
 precip <- read.csv(precip)
 
 for (i in 2:length(precip))
@@ -167,5 +167,30 @@ kfw.SPDF <- merge(kfw.SPDF, precip_min, by.x="id", by.y="id")
 
 #Fix size..
 kfw.SPDF@data["terrai_are"] <- lapply(kfw.SPDF@data["terrai_are"], function(x) as.numeric(gsub("Ha","",x)))
+
+
+#Distance to Rivers
+Riv_dist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/rivers_dist/rivers_dist_sa.shp"
+Riv_dist <- readShapePoly(Riv_dist)
+Riv_dist <- Riv_dist@data
+
+Riv_dist <- Riv_dist[c("id","dist")]
+
+#Rename the columns for easier interpretation later..
+colnames(Riv_dist)[2] <- "Riv_Dist"
+#Merge it in
+kfw.SPDF <- merge(kfw.SPDF, Riv_dist, by.x="id", by.y="id")
+
+#Distance to Roads
+Road_dist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/roads_dist/roads_dist_sa.shp"
+Road_dist <- readShapePoly(Road_dist)
+Road_dist<- Road_dist@data
+
+Road_dist <- Road_dist[c("id","dist")]
+
+#Rename the columns for easier interpretation later..
+colnames(Road_dist)[2] <- "Road_dist"
+#Merge it in
+kfw.SPDF <- merge(kfw.SPDF, Road_dist, by.x="id", by.y="id")
 
 writePolyShape(kfw.SPDF,"Processed_Data/Matched_Indigenous_Lands_DemResults.shp")
