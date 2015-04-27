@@ -25,7 +25,7 @@ dta_Shp <- dta_Shp[dta_Shp@data$SP_ID != 139,]
 
 #Calculate NDVI Trends
 dta_Shp$pre_trend <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",1982,1995,"SP_ID")
-dta_Shp$post_trend <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",1995,2013,"SP_ID")
+dta_Shp$post_trend <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
 dta_Shp@data["NDVIslopeChange"] <- dta_Shp@data["post_trend"] - dta_Shp@data["pre_trend"]
 
 dta_Shp@data["NDVI_14_94_Percent"] <- dta_Shp@data["NDVI2014"] / dta_Shp@data["NDVI1994"]
@@ -64,14 +64,15 @@ dta_Shp <- int_Shp
 
 
 
-psmModel <- "TrtBin ~ terrai_are + Pop_1990 + Pop_2000 + MeanT_1997 + MeanP_1997 + pre_trend +
-MeanT_2010 + MeanP_2010 + Slope + Elevation +  NDVI1997 + Riv_Dist + Road_dist"
-analyticModel <- "NDVIslopeChange ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + MeanT_1997 + MeanP_1997 + pre_trend +
-MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1997 + Riv_Dist + Road_dist"
+psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + MeanP_1995 + pre_trend +
+Slope + Elevation +  NDVI1995 + Riv_Dist + Road_dist"
+analyticModel <- "NDVIslopeChange ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + MeanT_1995 + MeanP_1995 + pre_trend +
+MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist + factor(UF)"
+
+analyticModel <- "NDVIslopeChange ~ TrtBin + factor(PSM_match_ID)"
 
 
-
-psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="none",visual=TRUE)
+psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="overlap",visual=TRUE)
 
 #Add in records for PFE
 drop_set<- c(drop_unmatched=TRUE,drop_method="None",drop_thresh=0.25)
@@ -88,7 +89,6 @@ psm_PairsB@data[ind] <- lapply(psm_PairsB@data[ind],scale)
 m_fit <- lm(analyticModel,psm_PairsB)
 summary(m_fit)
 texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
-
 
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI[0-9][0-9][0-9][0-9]")
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="MeanP_19[8-9][0-9]|MeanP_20[0-9][0-9]")
