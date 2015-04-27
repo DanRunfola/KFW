@@ -69,8 +69,6 @@ Slope + Elevation +  NDVI1995 + Riv_Dist + Road_dist"
 analyticModel <- "NDVIslopeChange ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + MeanT_1995 + MeanP_1995 + pre_trend +
 MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist + factor(UF)"
 
-analyticModel <- "NDVIslopeChange ~ TrtBin + factor(PSM_match_ID)"
-
 
 psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="overlap",visual=TRUE)
 
