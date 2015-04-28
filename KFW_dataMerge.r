@@ -3,10 +3,11 @@ library(reshape)
 library(splitstackshape)
 library(ggplot2)
 
-
+#Session - Set Working Directory - To Source File Location
 #File for the KFW analysis
 shpfile = "Input_Data/Matched_Indigenous_Lands_DemDates.shp"
 src_Shp = readShapePoly(shpfile)
+
 
 #Clean the source Shapefile to remove extra columns of data.
 cln_Shp <- src_Shp[,c("terrai_nom","terrai_are","reu_id","id","UF", "pop","demend_y","stagenum")]
