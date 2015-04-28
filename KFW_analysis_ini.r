@@ -1,7 +1,9 @@
 library(devtools)
-devtools::install_github("itpir/SAT@alpha2")
+devtools::install_github("itpir/SAT@alpha3")
 library(SAT)
 library(RColorBrewer)
+
+#ttest
 
 #load SAT libraries
 loadLibs()
