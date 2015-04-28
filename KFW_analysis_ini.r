@@ -3,8 +3,6 @@ devtools::install_github("itpir/SAT@alpha3")
 library(SAT)
 library(RColorBrewer)
 
-#ttest
-
 #load SAT libraries
 loadLibs()
 
