@@ -9,7 +9,7 @@ loadLibs()
 #View all functions
 lsf.str("package:SAT")
 
-shpfile = "Processed_Data/Matched_Indigenous_Lands_DemResults.shp"
+shpfile = "/Users/rbtrichler/Documents/AidData/Git\ Repos/KFW/Processed_Data/Matched_Indigenous_Lands_DemResults.shp"
 dta_Shp = readShapePoly(shpfile)
 
 #Drop out a few units
