@@ -25,7 +25,7 @@ dta_Shp <- dta_Shp[dta_Shp@data$SP_ID != 139,]
 
 #Calculate NDVI Trends
 dta_Shp$pre_trend <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",1982,1995,"SP_ID")
-dta_Shp$post_trend <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
+dta_Shp$post_trend <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",2001,2012,"SP_ID")
 dta_Shp@data["NDVIslopeChange"] <- dta_Shp@data["post_trend"] - dta_Shp@data["pre_trend"]
 
 dta_Shp@data["NDVI_14_94_Percent"] <- dta_Shp@data["NDVI2014"] / dta_Shp@data["NDVI1994"]
@@ -71,6 +71,11 @@ MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + 
 
 
 psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="overlap",visual=TRUE)
+
+psmCor <- SAT::PSMdistDecay(dta=psmRes,psm_col="TrtBin",start_bin_dist=50,increment_dist=75,h=5)
+
+Spatial = as(Spatial, "data.frame")
+coordinates(Spatial) = ~ newx + newy 
 
 #Add in records for PFE
 drop_set<- c(drop_unmatched=TRUE,drop_method="None",drop_thresh=0.25)
