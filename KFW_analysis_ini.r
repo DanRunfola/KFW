@@ -82,19 +82,24 @@ int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
 dta_Shp <- int_Shp
 
 
-psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + MeanP_1995 + pre_trend_NDVI +
-Slope + Elevation +  NDVI1995 + Riv_Dist + Road_dist"
-analyticModel <- "NDVIslopeChange ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + MeanT_1995 + MeanP_1995 + pre_trend_NDVI +
-MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
-#+ factor(UF)
+psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp + MeanP_1995 + pre_trend_precip + 
+pre_trend_NDVI + Slope + Elevation +  NDVI1995 + Riv_Dist + Road_dist"
+#analyticModelEarly, 1995-2001
+analyticModelEarly <- "NDVIslopeChange_01 ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + pre_trend_NDVI + MeanT_1995  + post_trend_temp_01
+MeanP_1995 + post_trend_precip_01 + MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
+#analyticModelLate, 2001-2010
+analyticModelLate <- "NDVIslopeChange_10 ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + pre-trend_NDVI + MeanT_2001 + post-trend_temp_10 + 
+MeanP_2001 + post_trend_temp_10 + MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
+
 
 psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="overlap",visual=TRUE)
 
 #Add in records for Pair FE
 drop_set<- c(drop_unmatched=TRUE,drop_method="None",drop_thresh=0.25)
 psm_Pairs <- SAT::SpatialCausalDist_Binary(dta = psmRes, mtd = "fastNN",constraints=c(groups="UF"),psm_eq = psmModel, ids = "id", drop_opts = drop_set, visual="TRUE", TrtBinColName="TrtBin")
-#
-m_fit <- lm(analyticModel,psm_Pairs)
+
+##AnalyticModelEarly
+m_fit <- lm(analyticModelEarly,psm_Pairs)
 summary(m_fit)
 texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Model")
 
@@ -102,9 +107,25 @@ texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstan
 psm_PairsB <- psm_Pairs
 ind <- sapply(psm_PairsB@data, is.numeric)
 psm_PairsB@data[ind] <- lapply(psm_PairsB@data[ind],scale)
-m_fit <- lm(analyticModel,psm_PairsB)
+m_fit <- lm(analyticModelEarly,psm_PairsB)
 summary(m_fit)
 texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
+
+##AnalyticModelLate
+m_fit <- lm(analyticModelLate,psm_Pairs)
+summary(m_fit)
+texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Model")
+
+#Scale all of the data to get standardized coefficients...
+psm_PairsB <- psm_Pairs
+ind <- sapply(psm_PairsB@data, is.numeric)
+psm_PairsB@data[ind] <- lapply(psm_PairsB@data[ind],scale)
+m_fit <- lm(analyticModelLate,psm_PairsB)
+summary(m_fit)
+texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
+
+
+
 
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI[0-9][0-9][0-9][0-9]")
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="MeanP_19[8-9][0-9]|MeanP_20[0-9][0-9]")
