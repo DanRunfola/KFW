@@ -9,8 +9,10 @@ loadLibs()
 #View all functions
 lsf.str("package:SAT")
 
-shpfile = "/Users/rbtrichler/Documents/AidData/Git\ Repos/KFW/Processed_Data/Matched_Indigenous_Lands_DemResults.shp"
+#Set working directory
+shpfile = "Processed_Data/Matched_Indigenous_Lands_DemResults.shp"
 dta_Shp = readShapePoly(shpfile)
+View(dta_Shp)
 
 #Drop out a few units
 #These units are being dropped due to issues with the historic data
@@ -24,12 +26,19 @@ dta_Shp <- dta_Shp[dta_Shp@data$SP_ID != 69,]
 dta_Shp <- dta_Shp[dta_Shp@data$SP_ID != 139,]
 
 #Calculate NDVI Trends
-dta_Shp$pre_trend <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",1982,1995,"SP_ID")
-dta_Shp$post_trend <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
-dta_Shp@data["NDVIslopeChange"] <- dta_Shp@data["post_trend"] - dta_Shp@data["pre_trend"]
+dta_Shp$pre_trend_NDVI <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",1982,1995,"SP_ID")
+
+#NDVI Trends for 1995-2001
+dta_Shp$post_trend_NDVI_01 <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",1995,2001,"SP_ID")
+dta_Shp@data["NDVIslopeChange_01"] <- dta_Shp@data["post_trend_NDVI_01"] - dta_Shp@data["pre_trend_NDVI"]
+
+#NDVI Trends for 2001-2010
+dta_Shp$post_trend_NDVI_10 <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
+dta_Shp@data["NDVIslopeChange_10"] <- dta_Shp@data["post_trend_NDVI_01"] - dta_Shp@data["pre_trend_NDVI"]
 
 dta_Shp@data["NDVI_14_94_Percent"] <- dta_Shp@data["NDVI2014"] / dta_Shp@data["NDVI1994"]
 dta_Shp@data["NDVI_94_82_Percent"] <- dta_Shp@data["NDVI1994"] / dta_Shp@data["NDVI1982"]
+
 
 #Calculate average temperature and precip for pre- and post- periods
 dta_Shp@data["meanT_94_82"] <- timeRangeAvg(dta_Shp@data,"MeanT_",1982,1994)
@@ -50,11 +59,15 @@ dta_Shp@data["minP_10_94"] <- timeRangeAvg(dta_Shp@data,"MinP_",1994,2010)
 
 #Make a binary to test treatment..
 dta_Shp@data["TrtBin"] <- 0
- #dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 6] <- 1
- #dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 7] <- 1
- #dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 8] <- 1
+#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 6] <- 1
+#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 7] <- 1
+#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 8] <- 1
 
 dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
+dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
+#summary(dta_Shp@data$TrtBin)
+#demtable <- table(dta_Shp@data$TrtBin)
+#View(demtable)
 
 dta_Shp@data$NA_check <- 0
 dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
@@ -62,17 +75,15 @@ int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
 dta_Shp <- int_Shp
 
 
-
-
 psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + MeanP_1995 + pre_trend +
 Slope + Elevation +  NDVI1995 + Riv_Dist + Road_dist"
 analyticModel <- "NDVIslopeChange ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + MeanT_1995 + MeanP_1995 + pre_trend +
-MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist + factor(UF)"
-
+MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
+#+ factor(UF)
 
 psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="overlap",visual=TRUE)
 
-#Add in records for PFE
+#Add in records for Pair FE
 drop_set<- c(drop_unmatched=TRUE,drop_method="None",drop_thresh=0.25)
 psm_Pairs <- SAT::SpatialCausalDist_Binary(dta = psmRes, mtd = "fastNN",constraints=c(groups="UF"),psm_eq = psmModel, ids = "id", drop_opts = drop_set, visual="TRUE", TrtBinColName="TrtBin")
 #
