@@ -32,7 +32,7 @@ dta_Shp$post_trend_NDVI_01 <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",
 dta_Shp@data["NDVIslopeChange_01"] <- dta_Shp@data["post_trend_NDVI_01"] - dta_Shp@data["pre_trend_NDVI"]
 #NDVI Trends for 2001-2010
 dta_Shp$post_trend_NDVI_10 <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
-dta_Shp@data["NDVIslopeChange_10"] <- dta_Shp@data["post_trend_NDVI_01"] - dta_Shp@data["pre_trend_NDVI"]
+dta_Shp@data["NDVIslopeChange_10"] <- dta_Shp@data["post_trend_NDVI_10"] - dta_Shp@data["pre_trend_NDVI"]
 
 dta_Shp@data["NDVI_14_94_Percent"] <- dta_Shp@data["NDVI2014"] / dta_Shp@data["NDVI1994"]
 dta_Shp@data["NDVI_94_82_Percent"] <- dta_Shp@data["NDVI1994"] / dta_Shp@data["NDVI1982"]
@@ -85,11 +85,11 @@ dta_Shp <- int_Shp
 psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp + MeanP_1995 + pre_trend_precip + 
 pre_trend_NDVI + Slope + Elevation +  NDVI1995 + Riv_Dist + Road_dist"
 #analyticModelEarly, 1995-2001
-analyticModelEarly <- "NDVIslopeChange_01 ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + pre_trend_NDVI + MeanT_1995  + post_trend_temp_01
+analyticModelEarly <- "NDVIslopeChange_01 ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + pre_trend_NDVI + MeanT_1995  + post_trend_temp_01 +
 MeanP_1995 + post_trend_precip_01 + MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
 #analyticModelLate, 2001-2010
-analyticModelLate <- "NDVIslopeChange_10 ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + pre-trend_NDVI + MeanT_2001 + post-trend_temp_10 + 
-MeanP_2001 + post_trend_temp_10 + MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
+analyticModelLate <- "NDVIslopeChange_10 ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + pre_trend_NDVI + MeanT_2001 + post_trend_temp_10 + 
+MeanP_2001 + post_trend_precip_10 + MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
 
 
 psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="overlap",visual=TRUE)
@@ -110,6 +110,7 @@ psm_PairsB@data[ind] <- lapply(psm_PairsB@data[ind],scale)
 m_fit <- lm(analyticModelEarly,psm_PairsB)
 summary(m_fit)
 texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
+
 
 ##AnalyticModelLate
 m_fit <- lm(analyticModelLate,psm_Pairs)
