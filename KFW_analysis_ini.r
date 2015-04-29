@@ -27,11 +27,9 @@ dta_Shp <- dta_Shp[dta_Shp@data$SP_ID != 139,]
 
 #Calculate NDVI Trends
 dta_Shp$pre_trend_NDVI <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",1982,1995,"SP_ID")
-
 #NDVI Trends for 1995-2001
 dta_Shp$post_trend_NDVI_01 <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",1995,2001,"SP_ID")
 dta_Shp@data["NDVIslopeChange_01"] <- dta_Shp@data["post_trend_NDVI_01"] - dta_Shp@data["pre_trend_NDVI"]
-
 #NDVI Trends for 2001-2010
 dta_Shp$post_trend_NDVI_10 <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
 dta_Shp@data["NDVIslopeChange_10"] <- dta_Shp@data["post_trend_NDVI_01"] - dta_Shp@data["pre_trend_NDVI"]
@@ -39,23 +37,32 @@ dta_Shp@data["NDVIslopeChange_10"] <- dta_Shp@data["post_trend_NDVI_01"] - dta_S
 dta_Shp@data["NDVI_14_94_Percent"] <- dta_Shp@data["NDVI2014"] / dta_Shp@data["NDVI1994"]
 dta_Shp@data["NDVI_94_82_Percent"] <- dta_Shp@data["NDVI1994"] / dta_Shp@data["NDVI1982"]
 
+#Calculate Temp and Precip Pre and Post Trends
+dta_Shp$pre_trend_temp <- timeRangeTrend(dta_Shp,"MeanT_[0-9][0-9][0-9][0-9]",1982,1995,"SP_ID")
+dta_Shp$post_trend_temp_01 <- timeRangeTrend(dta_Shp,"MeanT_[0-9][0-9][0-9][0-9]",1995,2001,"SP_ID")
+dta_Shp$post_trend_temp_10 <- timeRangeTrend(dta_Shp,"MeanT_[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
+
+dta_Shp$pre_trend_precip <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-9]",1982,1995,"SP_ID")
+dta_Shp$post_trend_precip_01 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-9]",1995,2001,"SP_ID")
+dta_Shp$post_trend_precip_10 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
+
 
 #Calculate average temperature and precip for pre- and post- periods
-dta_Shp@data["meanT_94_82"] <- timeRangeAvg(dta_Shp@data,"MeanT_",1982,1994)
-dta_Shp@data["maxT_94_82"] <- timeRangeAvg(dta_Shp@data,"MaxT_",1982,1994)
-dta_Shp@data["minT_94_82"] <- timeRangeAvg(dta_Shp@data,"MinT_",1982,1994)
+#dta_Shp@data["meanT_94_82"] <- timeRangeAvg(dta_Shp@data,"MeanT_",1982,1994)
+#dta_Shp@data["maxT_94_82"] <- timeRangeAvg(dta_Shp@data,"MaxT_",1982,1994)
+#dta_Shp@data["minT_94_82"] <- timeRangeAvg(dta_Shp@data,"MinT_",1982,1994)
 
-dta_Shp@data["meanP_94_82"] <- timeRangeAvg(dta_Shp@data,"MeanP_",1982,1994)
-dta_Shp@data["maxP_94_82"] <- timeRangeAvg(dta_Shp@data,"MaxP_",1982,1994)
-dta_Shp@data["minP_94_82"] <- timeRangeAvg(dta_Shp@data,"MinP_",1982,1994)
+#dta_Shp@data["meanP_94_82"] <- timeRangeAvg(dta_Shp@data,"MeanP_",1982,1994)
+#dta_Shp@data["maxP_94_82"] <- timeRangeAvg(dta_Shp@data,"MaxP_",1982,1994)
+#dta_Shp@data["minP_94_82"] <- timeRangeAvg(dta_Shp@data,"MinP_",1982,1994)
 
-dta_Shp@data["meanT_10_94"] <- timeRangeAvg(dta_Shp@data,"MeanT_",1994,2010)
-dta_Shp@data["maxT_10_94"] <- timeRangeAvg(dta_Shp@data,"MaxT_",1994,2010)
-dta_Shp@data["minT_10_94"] <- timeRangeAvg(dta_Shp@data,"MinT_",1994,2010)
+#dta_Shp@data["meanT_10_94"] <- timeRangeAvg(dta_Shp@data,"MeanT_",1994,2010)
+#dta_Shp@data["maxT_10_94"] <- timeRangeAvg(dta_Shp@data,"MaxT_",1994,2010)
+#dta_Shp@data["minT_10_94"] <- timeRangeAvg(dta_Shp@data,"MinT_",1994,2010)
 
-dta_Shp@data["meanP_10_94"] <- timeRangeAvg(dta_Shp@data,"MeanP_",1994,2010)
-dta_Shp@data["maxP_10_94"] <- timeRangeAvg(dta_Shp@data,"MaxP_",1994,2010)
-dta_Shp@data["minP_10_94"] <- timeRangeAvg(dta_Shp@data,"MinP_",1994,2010)
+#dta_Shp@data["meanP_10_94"] <- timeRangeAvg(dta_Shp@data,"MeanP_",1994,2010)
+#dta_Shp@data["maxP_10_94"] <- timeRangeAvg(dta_Shp@data,"MaxP_",1994,2010)
+#dta_Shp@data["minP_10_94"] <- timeRangeAvg(dta_Shp@data,"MinP_",1994,2010)
 
 #Make a binary to test treatment..
 dta_Shp@data["TrtBin"] <- 0
@@ -75,9 +82,9 @@ int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
 dta_Shp <- int_Shp
 
 
-psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + MeanP_1995 + pre_trend +
+psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + MeanP_1995 + pre_trend_NDVI +
 Slope + Elevation +  NDVI1995 + Riv_Dist + Road_dist"
-analyticModel <- "NDVIslopeChange ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + MeanT_1995 + MeanP_1995 + pre_trend +
+analyticModel <- "NDVIslopeChange ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + MeanT_1995 + MeanP_1995 + pre_trend_NDVI +
 MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
 #+ factor(UF)
 
