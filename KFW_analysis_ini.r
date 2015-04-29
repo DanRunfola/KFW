@@ -12,7 +12,7 @@ lsf.str("package:SAT")
 #Set working directory
 shpfile = "Processed_Data/Matched_Indigenous_Lands_DemResults.shp"
 dta_Shp = readShapePoly(shpfile)
-View(dta_Shp)
+#View(dta_Shp)
 
 #Drop out a few units
 #These units are being dropped due to issues with the historic data
@@ -81,51 +81,65 @@ dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
 int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
 dta_Shp <- int_Shp
 
-
+## \\ Matching //
 psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp + MeanP_1995 + pre_trend_precip + 
 pre_trend_NDVI + Slope + Elevation +  NDVI1995 + Riv_Dist + Road_dist"
-#analyticModelEarly, 1995-2001
-analyticModelEarly <- "NDVIslopeChange_01 ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + pre_trend_NDVI + MeanT_1995  + post_trend_temp_01 +
-MeanP_1995 + post_trend_precip_01 + MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
-#analyticModelLate, 2001-2010
-analyticModelLate <- "NDVIslopeChange_10 ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + pre_trend_NDVI + MeanT_2001 + post_trend_temp_10 + 
-MeanP_2001 + post_trend_precip_10 + MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
-
 
 psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="overlap",visual=TRUE)
 
-#Add in records for Pair FE
+#Add in records for Pair FE, create psm_Pairs
 drop_set<- c(drop_unmatched=TRUE,drop_method="None",drop_thresh=0.25)
 psm_Pairs <- SAT::SpatialCausalDist_Binary(dta = psmRes, mtd = "fastNN",constraints=c(groups="UF"),psm_eq = psmModel, ids = "id", drop_opts = drop_set, visual="TRUE", TrtBinColName="TrtBin")
 
-##AnalyticModelEarly
-m_fit <- lm(analyticModelEarly,psm_Pairs)
-summary(m_fit)
-texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Model")
-
-#Scale all of the data to get standardized coefficients...
+#Scale all of the data to get standardized coefficients, create psm_PairsB
 psm_PairsB <- psm_Pairs
 ind <- sapply(psm_PairsB@data, is.numeric)
 psm_PairsB@data[ind] <- lapply(psm_PairsB@data[ind],scale)
-m_fit <- lm(analyticModelEarly,psm_PairsB)
+
+## \\ Run Analytic Models //
+
+#analyticModelEarly1, no pair FE, no covars, 1995-2001
+summary(analyticModelEarly1 <- lm(NDVIslopeChange_10 ~ TrtBin, data=psm_Pairs))
+#Standardized Betas
+summary(analyticModelEarly1B <- lm(NDVIslopeChange_10 ~ TrtBin, data=psm_PairsB))
+
+
+#analyticModelEarly2, treatment effect + pair fixed effects, 1995-2001
+analyticModelEarly2 <- "NDVIslopeChange_01 ~ TrtBin + factor(PSM_match_ID)"
+
+mfit <- lm(analyticModelEarly1,psm_Pairs)
+summary(m_fit)
+texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Model")
+#Standardized Betas
+m_fit <- lm(analyticModelEarly1,psm_PairsB)
 summary(m_fit)
 texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
 
 
-##AnalyticModelLate
+#analyticModelEarly3, treatment effect + pair fixed effects + covars 1995-2001
+analyticModelEarly3 <- "NDVIslopeChange_01 ~ TrtBin+ terrai_are + Pop_1990 + Pop_2000 + pre_trend_NDVI + MeanT_1995  + post_trend_temp_01 +
+MeanP_1995 + post_trend_precip_01 + MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
+
+m_fit <- lm(analyticModelEarly3,psm_Pairs)
+summary(m_fit)
+texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Model")
+#Standardized Betas
+m_fit <- lm(analyticModelEarly3,psm_PairsB)
+summary(m_fit)
+texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
+
+
+#analyticModelLate, treatment effect + pair fixed effects + covars 2001-2010
+analyticModelLate <- "NDVIslopeChange_10 ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + pre_trend_NDVI + MeanT_2001 + post_trend_temp_10 + 
+MeanP_2001 + post_trend_precip_10 + MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
+
 m_fit <- lm(analyticModelLate,psm_Pairs)
 summary(m_fit)
 texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Model")
-
-#Scale all of the data to get standardized coefficients...
-psm_PairsB <- psm_Pairs
-ind <- sapply(psm_PairsB@data, is.numeric)
-psm_PairsB@data[ind] <- lapply(psm_PairsB@data[ind],scale)
+#Standardized Betas
 m_fit <- lm(analyticModelLate,psm_PairsB)
 summary(m_fit)
 texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
-
-
 
 
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI[0-9][0-9][0-9][0-9]")
