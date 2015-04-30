@@ -107,11 +107,11 @@ summary(analyticModelEarly1B <- lm(NDVIslopeChange_10 ~ TrtBin, data=psm_PairsB)
 #analyticModelEarly2, treatment effect + pair fixed effects, 1995-2001
 analyticModelEarly2 <- "NDVIslopeChange_01 ~ TrtBin + factor(PSM_match_ID)"
 
-mfit <- lm(analyticModelEarly1,psm_Pairs)
+mfit <- lm(analyticModelEarly2,psm_Pairs)
 summary(m_fit)
 texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Model")
 #Standardized Betas
-m_fit <- lm(analyticModelEarly1,psm_PairsB)
+m_fit <- lm(analyticModelEarly2,psm_PairsB)
 summary(m_fit)
 texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
 
