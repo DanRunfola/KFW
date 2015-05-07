@@ -111,26 +111,30 @@ summary(analyticModelEarly1B <- lm(NDVIslopeChange_10 ~ TrtBin, data=psm_PairsB)
 #analyticModelEarly2, treatment effect + pair fixed effects, 1995-2001
 analyticModelEarly2 <- "NDVIslopeChange_01 ~ TrtBin + factor(PSM_match_ID)"
 
-mfit <- lm(analyticModelEarly2,psm_Pairs)
-summary(m_fit)
-texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Model")
+Stage2PSM(analyticModelEarly2,psm_Pairs,type="lm",table_out=TRUE)
+
+#mfit <- lm(analyticModelEarly2,psm_Pairs)
+#summary(m_fit)
+#texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Model")
 #Standardized Betas
-m_fit <- lm(analyticModelEarly2,psm_PairsB)
-summary(m_fit)
-texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
+#m_fit <- lm(analyticModelEarly2,psm_PairsB)
+#summary(m_fit)
+#texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
 
 
 #analyticModelEarly3, treatment effect + pair fixed effects + covars 1995-2001
 analyticModelEarly3 <- "NDVIslopeChange_01 ~ TrtBin+ terrai_are + Pop_1990 + pre_trend_NDVI + MeanT_1995  + post_trend_temp_01 +
 MeanP_1995 + post_trend_precip_01 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
 
-m_fit <- lm(analyticModelEarly3,psm_Pairs)
-summary(m_fit)
-texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Model")
+Stage2PSM(analyticModelEarly3,psm_Pairs,type="lm",table_out=TRUE)
+
+#m_fit <- lm(analyticModelEarly3,psm_Pairs)
+#summary(m_fit)
+#texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Model")
 #Standardized Betas
-m_fit <- lm(analyticModelEarly3,psm_PairsB)
-summary(m_fit)
-texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
+#m_fit <- lm(analyticModelEarly3,psm_PairsB)
+#summary(m_fit)
+#texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
 
 
 #analyticModelLate, treatment effect + pair fixed effects + covars 2001-2010
