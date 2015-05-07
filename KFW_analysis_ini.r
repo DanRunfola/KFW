@@ -1,5 +1,5 @@
 library(devtools)
-devtools::install_github("itpir/SAT@alpha2")
+devtools::install_github("itpir/SAT@trueSpatial")
 library(SAT)
 library(RColorBrewer)
 
@@ -48,7 +48,7 @@ dta_Shp$post_trend_precip_10 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-
 
 
 #Calculate average temperature and precip for pre- and post- periods
-#dta_Shp@data["meanT_94_82"] <- timeRangeAvg(dta_Shp@data,"MeanT_",1982,1994)
+#dta_Shp@data["meanT_95_82"] <- timeRangeAvg(dta_Shp@data,"MeanT_",1982,1995)
 #dta_Shp@data["maxT_94_82"] <- timeRangeAvg(dta_Shp@data,"MaxT_",1982,1994)
 #dta_Shp@data["minT_94_82"] <- timeRangeAvg(dta_Shp@data,"MinT_",1982,1994)
 
@@ -56,11 +56,15 @@ dta_Shp$post_trend_precip_10 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-
 #dta_Shp@data["maxP_94_82"] <- timeRangeAvg(dta_Shp@data,"MaxP_",1982,1994)
 #dta_Shp@data["minP_94_82"] <- timeRangeAvg(dta_Shp@data,"MinP_",1982,1994)
 
-#dta_Shp@data["meanT_10_94"] <- timeRangeAvg(dta_Shp@data,"MeanT_",1994,2010)
+#dta_Shp@data["meanT_01_95"] <- timeRangeAvg(dta_Shp@data,"MeanT_",1995,2001)
+#dta_Shp@data["meanT_10_01"] <- timeRangeAvg(dta_Shp@data,"MeanT_",2001,2010)
+
 #dta_Shp@data["maxT_10_94"] <- timeRangeAvg(dta_Shp@data,"MaxT_",1994,2010)
 #dta_Shp@data["minT_10_94"] <- timeRangeAvg(dta_Shp@data,"MinT_",1994,2010)
 
-#dta_Shp@data["meanP_10_94"] <- timeRangeAvg(dta_Shp@data,"MeanP_",1994,2010)
+#dta_Shp@data["meanP_01_95"] <- timeRangeAvg(dta_Shp@data,"MeanP_",1995,2001)
+#dta_Shp@data["meanP_10_01"] <- timeRangeAvg(dta_Shp@data,"MeanP_",2001,2010)
+
 #dta_Shp@data["maxP_10_94"] <- timeRangeAvg(dta_Shp@data,"MaxP_",1994,2010)
 #dta_Shp@data["minP_10_94"] <- timeRangeAvg(dta_Shp@data,"MinP_",1994,2010)
 
@@ -89,7 +93,7 @@ psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="overlap",visu
 
 #Add in records for Pair FE, create psm_Pairs
 drop_set<- c(drop_unmatched=TRUE,drop_method="None",drop_thresh=0.25)
-psm_Pairs <- SAT::SpatialCausalDist_Binary(dta = psmRes, mtd = "fastNN",constraints=c(groups="UF"),psm_eq = psmModel, ids = "id", drop_opts = drop_set, visual="TRUE", TrtBinColName="TrtBin")
+psm_Pairs <- SAT(dta = psmRes, mtd = "fastNN",constraints=c(groups="UF"),psm_eq = psmModel, ids = "id", drop_opts = drop_set, visual="TRUE", TrtBinColName="TrtBin")
 
 #Scale all of the data to get standardized coefficients, create psm_PairsB
 psm_PairsB <- psm_Pairs
@@ -117,8 +121,8 @@ texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standa
 
 
 #analyticModelEarly3, treatment effect + pair fixed effects + covars 1995-2001
-analyticModelEarly3 <- "NDVIslopeChange_01 ~ TrtBin+ terrai_are + Pop_1990 + Pop_2000 + pre_trend_NDVI + MeanT_1995  + post_trend_temp_01 +
-MeanP_1995 + post_trend_precip_01 + MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
+analyticModelEarly3 <- "NDVIslopeChange_01 ~ TrtBin+ terrai_are + Pop_1990 + pre_trend_NDVI + MeanT_1995  + post_trend_temp_01 +
+MeanP_1995 + post_trend_precip_01 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
 
 m_fit <- lm(analyticModelEarly3,psm_Pairs)
 summary(m_fit)
@@ -130,16 +134,17 @@ texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standa
 
 
 #analyticModelLate, treatment effect + pair fixed effects + covars 2001-2010
-analyticModelLate <- "NDVIslopeChange_10 ~ TrtBin + terrai_are + Pop_1990 + Pop_2000 + pre_trend_NDVI + MeanT_2001 + post_trend_temp_10 + 
-MeanP_2001 + post_trend_precip_10 + MeanT_2010 + MeanP_2010 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
+analyticModelLate <- "NDVIslopeChange_10 ~ TrtBin + terrai_are + Pop_2000 + pre_trend_NDVI + MeanT_2001 + post_trend_temp_10 + 
+MeanP_2001 + post_trend_precip_10 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
 
-m_fit <- lm(analyticModelLate,psm_Pairs)
-summary(m_fit)
-texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Model")
-#Standardized Betas
-m_fit <- lm(analyticModelLate,psm_PairsB)
-summary(m_fit)
-texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
+Stage2PSM(analyticModelLate,psm_Pairs,type="lm",table_out=TRUE)
+# m_fit <- lm(analyticModelLate,psm_Pairs)
+# summary(m_fit)
+# texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Unstandardized Model")
+# #Standardized Betas
+# m_fit <- lm(analyticModelLate,psm_PairsB)
+# summary(m_fit)
+# texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
 
 
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI[0-9][0-9][0-9][0-9]")
