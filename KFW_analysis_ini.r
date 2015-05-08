@@ -33,6 +33,10 @@ dta_Shp@data["NDVIslopeChange_01"] <- dta_Shp@data["post_trend_NDVI_01"] - dta_S
 #NDVI Trends for 2001-2010
 dta_Shp$post_trend_NDVI_10 <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
 dta_Shp@data["NDVIslopeChange_10"] <- dta_Shp@data["post_trend_NDVI_10"] - dta_Shp@data["pre_trend_NDVI"]
+#NDVI Trends for 1995-2010
+dta_Shp$post_trend_NDVI_95_10 <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",1995,2010,"SP_ID")
+dta_Shp@data["NDVIslopeChange_95_10"] <- dta_Shp@data["post_trend_NDVI_95_10"] - dta_Shp@data["pre_trend_NDVI"]
+
 
 dta_Shp@data["NDVI_14_94_Percent"] <- dta_Shp@data["NDVI2014"] / dta_Shp@data["NDVI1994"]
 dta_Shp@data["NDVI_94_82_Percent"] <- dta_Shp@data["NDVI1994"] / dta_Shp@data["NDVI1982"]
@@ -103,11 +107,12 @@ ind <- sapply(psm_PairsB@data, is.numeric)
 psm_PairsB@data[ind] <- lapply(psm_PairsB@data[ind],scale)
 
 ## \\ Run Analytic Models //
+## Early vs. Late
 
 #analyticModelEarly1, no pair FE, no covars, 1995-2001
-summary(analyticModelEarly1 <- lm(NDVIslopeChange_10 ~ TrtBin, data=psm_Pairs))
+summary(analyticModelEarly1 <- lm(NDVIslopeChange_01 ~ TrtBin, data=psm_Pairs))
 #Standardized Betas
-summary(analyticModelEarly1B <- lm(NDVIslopeChange_10 ~ TrtBin, data=psm_PairsB))
+summary(analyticModelEarly1B <- lm(NDVIslopeChange_01 ~ TrtBin, data=psm_PairsB))
 
 
 #analyticModelEarly2, treatment effect + pair fixed effects, 1995-2001
@@ -152,6 +157,26 @@ Stage2PSM(analyticModelLate,psm_Pairs,type="lm",table_out=TRUE)
 # summary(m_fit)
 # texreg::plotreg(m_fit,omit.coef="(match)|(Intercept)",custom.model.names="Standardized Model")
 
+## Never vs. Ever
+
+#OLS, no pair FEs, no covars, 1995-2010
+summary(analyticModelEver1 <- lm(NDVIslopeChange_95_10 ~ TrtBin, data=psm_Pairs))
+summary(analyticModelEver1B <- lm(NDVIslopeChange_95_10 ~ TrtBin, data=psm_PairsB))
+
+#analyticModelEver2, pair FEs, no covars, 1995-2010
+
+analyticModelEver2 <- "NDVIslopeChange_95_10 ~ TrtBin + factor(PSM_match_ID)"
+
+Stage2PSM(analyticModelEver2,psm_Pairs,type="lm",table_out=TRUE)
+
+#analyticModelEver3, pair FEs, covars, 1995-2010
+analyticModelEver3 <- "NDVIslopeChange_95_10 ~ TrtBin+ terrai_are + Pop_1990 + pre_trend_NDVI + MeanT_1995  + post_trend_temp_95_10 +
+MeanP_1995 + post_trend_precip_95_10 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
+
+Stage2PSM(analyticModelEver3,psm_Pairs,type="lm",table_out=TRUE)
+
+
+##NDVI and CoVar Visualizations
 
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI[0-9][0-9][0-9][0-9]")
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="MeanP_19[8-9][0-9]|MeanP_20[0-9][0-9]")
