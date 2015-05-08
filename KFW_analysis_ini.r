@@ -41,10 +41,12 @@ dta_Shp@data["NDVI_94_82_Percent"] <- dta_Shp@data["NDVI1994"] / dta_Shp@data["N
 dta_Shp$pre_trend_temp <- timeRangeTrend(dta_Shp,"MeanT_[0-9][0-9][0-9][0-9]",1982,1995,"SP_ID")
 dta_Shp$post_trend_temp_01 <- timeRangeTrend(dta_Shp,"MeanT_[0-9][0-9][0-9][0-9]",1995,2001,"SP_ID")
 dta_Shp$post_trend_temp_10 <- timeRangeTrend(dta_Shp,"MeanT_[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
+dta_Shp$post_trend_temp_95_10 <- timeRangeTrend(dta_Shp, "MeanT_[0-9][0-9][0-9][0-9]",1995,2010,"SP_ID")
 
 dta_Shp$pre_trend_precip <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-9]",1982,1995,"SP_ID")
 dta_Shp$post_trend_precip_01 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-9]",1995,2001,"SP_ID")
 dta_Shp$post_trend_precip_10 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
+dta_Shp$post_trend_precip_95_10 <- timeRangeTrend(dta_Shp, "MeanP_[0-9][0-9][0-9][0-9]",1995,2010,"SP_ID")
 
 
 #Calculate average temperature and precip for pre- and post- periods
@@ -70,20 +72,20 @@ dta_Shp$post_trend_precip_10 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-
 
 #Make a binary to test treatment..
 dta_Shp@data["TrtBin"] <- 0
-#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 6] <- 1
-#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 7] <- 1
-#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 8] <- 1
+dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 6] <- 1
+dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 7] <- 1
+dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 8] <- 1
 
-dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
-dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
-#summary(dta_Shp@data$TrtBin)
-#demtable <- table(dta_Shp@data$TrtBin)
-#View(demtable)
+#dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
+#dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
+summary(dta_Shp@data$TrtBin)
+demtable <- table(dta_Shp@data$TrtBin)
+View(demtable)
 
-dta_Shp@data$NA_check <- 0
-dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
-int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
-dta_Shp <- int_Shp
+#dta_Shp@data$NA_check <- 0
+#dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
+#int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
+#dta_Shp <- int_Shp
 
 ## \\ Matching //
 psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp + MeanP_1995 + pre_trend_precip + 
