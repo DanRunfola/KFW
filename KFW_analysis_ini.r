@@ -180,5 +180,9 @@ Stage2PSM(analyticModelEver3,psm_Pairs,type="lm",table_out=TRUE)
 ##NDVI and CoVar Visualizations
 
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI[0-9][0-9][0-9][0-9]")
+SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI199[5-9]|NDVI200[0-9]|NDVI2010")
+SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI199[5-9]|NDVI200[0-1]")
+SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI200[1-9]|NDVI2010")
+
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="MeanP_19[8-9][0-9]|MeanP_20[0-9][0-9]")
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="MeanT_19[8-9][0-9]|MeanT_20[0-9][0-9]")
