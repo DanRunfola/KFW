@@ -76,20 +76,20 @@ dta_Shp$post_trend_precip_95_10 <- timeRangeTrend(dta_Shp, "MeanP_[0-9][0-9][0-9
 
 #Make a binary to test treatment..
 dta_Shp@data["TrtBin"] <- 0
-dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 6] <- 1
-dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 7] <- 1
-dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 8] <- 1
+#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 6] <- 1
+#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 7] <- 1
+#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 8] <- 1
 
-#dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
-#dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
-summary(dta_Shp@data$TrtBin)
-demtable <- table(dta_Shp@data$TrtBin)
-View(demtable)
+dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
+dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
+#summary(dta_Shp@data$TrtBin)
+#demtable <- table(dta_Shp@data$TrtBin)
+#View(demtable)
 
-#dta_Shp@data$NA_check <- 0
-#dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
-#int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
-#dta_Shp <- int_Shp
+dta_Shp@data$NA_check <- 0
+dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
+int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
+dta_Shp <- int_Shp
 
 ## \\ Matching //
 psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp + MeanP_1995 + pre_trend_precip + 
@@ -119,7 +119,13 @@ summary(analyticModelEarly1B <- lm(NDVIslopeChange_01 ~ TrtBin, data=psm_PairsB)
 #analyticModelEarly2, treatment effect + pair fixed effects, 1995-2001
 analyticModelEarly2 <- "NDVIslopeChange_01 ~ TrtBin + factor(PSM_match_ID)"
 
-Stage2PSM(analyticModelEarly2,psm_Pairs,type="lm",table_out=TRUE)
+OutputEarly2=Stage2PSM(analyticModelEarly2,psm_Pairs,type="lm",table_out=TRUE)
+OutputEarly2["Standardized"]
+
+library(stargazer)
+stargazer(OutputEarly2["Standardized"],OutputEarly3["Standardized"], title="Regression Results", type="html",
+          align=TRUE)
+stargazer(attitude)
 
 #mfit <- lm(analyticModelEarly2,psm_Pairs)
 #summary(m_fit)
@@ -134,7 +140,7 @@ Stage2PSM(analyticModelEarly2,psm_Pairs,type="lm",table_out=TRUE)
 analyticModelEarly3 <- "NDVIslopeChange_01 ~ TrtBin+ terrai_are + Pop_1990 + pre_trend_NDVI + MeanT_1995  + post_trend_temp_01 +
 MeanP_1995 + post_trend_precip_01 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
 
-Stage2PSM(analyticModelEarly3,psm_Pairs,type="lm",table_out=TRUE)
+OutputEarly3=Stage2PSM(analyticModelEarly3,psm_Pairs,type="lm",table_out=TRUE)
 
 #m_fit <- lm(analyticModelEarly3,psm_Pairs)
 #summary(m_fit)
