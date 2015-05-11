@@ -1,5 +1,5 @@
 library(devtools)
-devtools::install_github("itpir/SAT@trueSpatial")
+devtools::install_github("itpir/SAT@spatialBranch2")
 library(SAT)
 library(RColorBrewer)
 
@@ -107,6 +107,7 @@ ind <- sapply(psm_PairsB@data, is.numeric)
 psm_PairsB@data[ind] <- lapply(psm_PairsB@data[ind],scale)
 
 ## \\ Run Analytic Models //
+
 ## Early vs. Late
 
 #analyticModelEarly1, no pair FE, no covars, 1995-2001
