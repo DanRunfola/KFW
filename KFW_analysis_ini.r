@@ -12,7 +12,7 @@ lsf.str("package:SAT")
 #Set working directory
 shpfile = "Processed_Data/Matched_Indigenous_Lands_DemResults.shp"
 dta_Shp = readShapePoly(shpfile)
-View(dta_Shp)
+#View(dta_Shp)
 
 #Drop out a few units
 #These units are being dropped due to issues with the historic data
@@ -76,20 +76,20 @@ dta_Shp$post_trend_precip_95_10 <- timeRangeTrend(dta_Shp, "MeanP_[0-9][0-9][0-9
 
 #Make a binary to test treatment..
 dta_Shp@data["TrtBin"] <- 0
-#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 6] <- 1
-#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 7] <- 1
-#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 8] <- 1
+dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 6] <- 1
+dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 7] <- 1
+dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 8] <- 1
 
-dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
-dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
+#dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
+#dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
 #summary(dta_Shp@data$TrtBin)
 demtable <- table(dta_Shp@data$TrtBin)
 View(demtable)
 
-dta_Shp@data$NA_check <- 0
-dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
-int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
-dta_Shp <- int_Shp
+#dta_Shp@data$NA_check <- 0
+#dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
+#int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
+#dta_Shp <- int_Shp
 
 ## \\ Matching //
 psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp + MeanP_1995 + pre_trend_precip + 
@@ -100,7 +100,8 @@ psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="overlap",visu
 #Add in records for Pair FE, create psm_Pairs
 drop_set<- c(drop_unmatched=TRUE,drop_method="None",drop_thresh=0.25)
 psm_Pairs <- SAT(dta = psmRes, mtd = "fastNN",constraints=c(groups="UF"),psm_eq = psmModel, ids = "id", drop_opts = drop_set, visual="TRUE", TrtBinColName="TrtBin")
-
+trttable <- table (psm_Pairs@data$TrtBin)
+View(trttable)
 #Scale all of the data to get standardized coefficients, create psm_PairsB
 psm_PairsB <- psm_Pairs
 ind <- sapply(psm_PairsB@data, is.numeric)
@@ -131,8 +132,9 @@ OutputEarly2=Stage2PSM(analyticModelEarly2,psm_Pairs,type="lm",table_out=TRUE)
 
 
 #analyticModelEarly3, treatment effect + pair fixed effects + covars 1995-2001
-analyticModelEarly3 <- "NDVIslopeChange_01 ~ TrtBin+ terrai_are + Pop_1990 + pre_trend_NDVI + MeanT_1995  + post_trend_temp_01 +
-MeanP_1995 + post_trend_precip_01 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
+analyticModelEarly3 <- "NDVIslopeChange_01 ~ TrtBin+ terrai_are + Pop_1990 + pre_trend_NDVI + NDVI1995 + MeanT_1995  + post_trend_temp_01 +
+MeanP_1995 + post_trend_precip_01 + Slope + Elevation + Riv_Dist + Road_dist + factor(PSM_match_ID)"
+
 
 OutputEarly3=Stage2PSM(analyticModelEarly3,psm_Pairs,type="lm",table_out=TRUE)
 
@@ -146,8 +148,8 @@ OutputEarly3=Stage2PSM(analyticModelEarly3,psm_Pairs,type="lm",table_out=TRUE)
 
 
 #analyticModelLate, treatment effect + pair fixed effects + covars 2001-2010
-analyticModelLate <- "NDVIslopeChange_10 ~ TrtBin + terrai_are + Pop_2000 + pre_trend_NDVI + MeanT_2001 + post_trend_temp_10 + 
-MeanP_2001 + post_trend_precip_10 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
+analyticModelLate <- "NDVIslopeChange_10 ~ TrtBin + terrai_are + Pop_2000 + pre_trend_NDVI + NDVI1995 + MeanT_2001 + post_trend_temp_10 + 
+MeanP_2001 + post_trend_precip_10 + Slope + Elevation + Riv_Dist + Road_dist + factor(PSM_match_ID)"
 
 OutputLate=Stage2PSM(analyticModelLate,psm_Pairs,type="lm",table_out=TRUE)
 # m_fit <- lm(analyticModelLate,psm_Pairs)
@@ -171,11 +173,13 @@ analyticModelEver2 <- "NDVIslopeChange_95_10 ~ TrtBin + factor(PSM_match_ID)"
 OutputEver2=Stage2PSM(analyticModelEver2,psm_Pairs,type="lm",table_out=TRUE)
 
 #analyticModelEver3, pair FEs, covars, 1995-2010
-analyticModelEver3 <- "NDVIslopeChange_95_10 ~ TrtBin+ terrai_are + Pop_1990 + pre_trend_NDVI + MeanT_1995  + post_trend_temp_95_10 +
-MeanP_1995 + post_trend_precip_95_10 + Slope + Elevation + factor(PSM_match_ID) + NDVI1995 + Riv_Dist + Road_dist"
+analyticModelEver3 <- "NDVIslopeChange_95_10 ~ TrtBin+ terrai_are + Pop_1990 + pre_trend_NDVI + NDVI1995 + MeanT_1995  + post_trend_temp_95_10 +
+MeanP_1995 + post_trend_precip_95_10 + Slope + Elevation  + Riv_Dist + Road_dist + factor(PSM_match_ID)"
 
-OutputEver3=Stage2PSM(analyticModelEver3,psm_Pairs,type="lm",table_out=TRUE)
-
+Data_Ever3 <- psm_Pairs
+colnames(Data_Ever3["MeanT_1995"]) <- "MeanT"
+OutputEver3=Stage2PSM(analyticModelEver3,Data_Ever3,type="lm",table_out=TRUE)
+View(Data_Ever3)
 # Results Tables
 
 library(stargazer)
