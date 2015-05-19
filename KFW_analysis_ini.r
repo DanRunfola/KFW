@@ -12,18 +12,18 @@ lsf.str("package:SAT")
 #Set working directory
 shpfile = "Processed_Data/Matched_Indigenous_Lands_DemResults.shp"
 dta_Shp = readShapePoly(shpfile)
-#View(dta_Shp)
+View(dta_Shp)
 
 #Drop out a few units
 #These units are being dropped due to issues with the historic data
 #Specifically, effects of large water bodies and large areas of deforestation (pre-existing)
-dta_Shp <- dta_Shp[dta_Shp@data$SP_ID != 62,]
-dta_Shp <- dta_Shp[dta_Shp@data$SP_ID != 127,]
-dta_Shp <- dta_Shp[dta_Shp@data$SP_ID != 92,]
-dta_Shp <- dta_Shp[dta_Shp@data$SP_ID != 16,]
-dta_Shp <- dta_Shp[dta_Shp@data$SP_ID != 143,]
-dta_Shp <- dta_Shp[dta_Shp@data$SP_ID != 69,]
-dta_Shp <- dta_Shp[dta_Shp@data$SP_ID != 139,]
+dta_Shp <- dta_Shp[dta_Shp@data$reu_id != 94,]
+dta_Shp <- dta_Shp[dta_Shp@data$reu_id != 84,]
+dta_Shp <- dta_Shp[dta_Shp@data$reu_id != 137,]
+dta_Shp <- dta_Shp[dta_Shp@data$reu_id != 143,]
+dta_Shp <- dta_Shp[dta_Shp@data$reu_id != 115,]
+dta_Shp <- dta_Shp[dta_Shp@data$reu_id != 135,]
+dta_Shp <- dta_Shp[dta_Shp@data$reu_id != 112,]
 
 #Calculate NDVI Trends
 dta_Shp$pre_trend_NDVI <- timeRangeTrend(dta_Shp,"NDVI[0-9][0-9][0-9][0-9]",1982,1995,"SP_ID")
@@ -83,8 +83,8 @@ dta_Shp@data["TrtBin"] <- 0
 dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
 dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
 #summary(dta_Shp@data$TrtBin)
-#demtable <- table(dta_Shp@data$TrtBin)
-#View(demtable)
+demtable <- table(dta_Shp@data$TrtBin)
+View(demtable)
 
 dta_Shp@data$NA_check <- 0
 dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
