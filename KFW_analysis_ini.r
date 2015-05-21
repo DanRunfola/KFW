@@ -104,6 +104,11 @@ psm_Pairs <- SAT(dta = psmRes, mtd = "fastNN",constraints=NULL,psm_eq = psmModel
 trttable <- table (psm_Pairs@data$TrtBin)
 View(trttable)
 
+#Scale all of the data to get standardized coefficients, create psm_PairsB
+psm_PairsB <- psm_Pairs
+ind <- sapply(psm_PairsB@data, is.numeric)
+psm_PairsB@data[ind] <- lapply(psm_PairsB@data[ind],scale)
+
 ## \\ Run Analytic Models //
 
 ## Early vs. Late
@@ -221,7 +226,7 @@ stargazer(analyticModelEver1B, OutputEver2$standardized, OutputEver3$standardize
 
 ##NDVI and CoVar Visualizations
 
-SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI[0-9][0-9][0-9][0-9]")
+SAT::ViewTimeSeries(dta=dta_Shp,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI[0-9][0-9][0-9][0-9]")
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI199[5-9]|NDVI200[0-9]|NDVI2010")
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI199[5-9]|NDVI200[0-1]")
 SAT::ViewTimeSeries(dta=psm_Pairs,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI200[1-9]|NDVI2010")
