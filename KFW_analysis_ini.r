@@ -1,5 +1,5 @@
 library(devtools)
-devtools::install_github("itpir/SAT@spatialBranch2")
+devtools::install_github("itpir/SAT@spatialBranch3")
 library(SAT)
 library(RColorBrewer)
 
@@ -76,20 +76,20 @@ dta_Shp$post_trend_precip_95_10 <- timeRangeTrend(dta_Shp, "MeanP_[0-9][0-9][0-9
 
 #Make a binary to test treatment..
 dta_Shp@data["TrtBin"] <- 0
-dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 6] <- 1
-dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 7] <- 1
-dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 8] <- 1
+#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 6] <- 1
+#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 7] <- 1
+#dta_Shp@data$TrtBin[dta_Shp@data$stagenum == 8] <- 1
 
-#dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
-#dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
+dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
+dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
 #summary(dta_Shp@data$TrtBin)
 demtable <- table(dta_Shp@data$TrtBin)
 View(demtable)
 
-#dta_Shp@data$NA_check <- 0
-#dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
-#int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
-#dta_Shp <- int_Shp
+dta_Shp@data$NA_check <- 0
+dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
+int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
+dta_Shp <- int_Shp
 
 ## \\ Matching //
 psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp + MeanP_1995 + pre_trend_precip + 
@@ -99,13 +99,10 @@ psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="overlap",visu
 
 #Add in records for Pair FE, create psm_Pairs
 drop_set<- c(drop_unmatched=TRUE,drop_method="None",drop_thresh=0.25)
-psm_Pairs <- SAT(dta = psmRes, mtd = "fastNN",constraints=c(groups="UF"),psm_eq = psmModel, ids = "id", drop_opts = drop_set, visual="TRUE", TrtBinColName="TrtBin")
+psm_Pairs <- SAT(dta = psmRes, mtd = "fastNN",constraints=NULL,psm_eq = psmModel, 
+                 ids = "id", drop_opts = drop_set, visual="TRUE", TrtBinColName="TrtBin")
 trttable <- table (psm_Pairs@data$TrtBin)
 View(trttable)
-#Scale all of the data to get standardized coefficients, create psm_PairsB
-psm_PairsB <- psm_Pairs
-ind <- sapply(psm_PairsB@data, is.numeric)
-psm_PairsB@data[ind] <- lapply(psm_PairsB@data[ind],scale)
 
 ## \\ Run Analytic Models //
 
@@ -140,7 +137,7 @@ colnames(Data_Early3@data)[(colnames(Data_Early3@data)=="MeanT_1995")] <- "MeanT
 colnames(Data_Early3@data)[(colnames(Data_Early3@data)=="MeanP_1995")] <- "MeanP_B"
 colnames(Data_Early3@data)[(colnames(Data_Early3@data)=="post_trend_temp_95_01")] <- "post_trend_temp"
 colnames(Data_Early3@data)[(colnames(Data_Early3@data)=="post_trend_precip_95_01")] <- "post_trend_precip"
-colnames(Data_Early3@data)
+#colnames(Data_Early3@data)
 
 analyticModelEarly3 <- "NDVIslopeChange_01 ~ TrtBin+ pre_trend_NDVI + NDVI1995 + terrai_are + Pop_B + MeanT_B  + post_trend_temp +
 MeanP_B + post_trend_precip + Slope + Elevation + Riv_Dist + Road_dist + factor(PSM_match_ID)"
