@@ -99,7 +99,7 @@ psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="overlap",visu
 
 #Add in records for Pair FE, create psm_Pairs
 drop_set<- c(drop_unmatched=TRUE,drop_method="None",drop_thresh=0.25)
-psm_Pairs <- SAT(dta = psmRes, mtd = "fastNN",constraints=NULL,psm_eq = psmModel, 
+psm_Pairs <- SAT(dta = psmRes, mtd = "fastNN",constraints=c(groups="UF"),psm_eq = psmModel, 
                  ids = "id", drop_opts = drop_set, visual="TRUE", TrtBinColName="TrtBin")
 trttable <- table (psm_Pairs@data$TrtBin)
 View(trttable)
