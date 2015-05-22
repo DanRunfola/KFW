@@ -21,15 +21,50 @@ colnames(GPW_pop)[4] <- "Pop_2000"
 #Merge it in
 kfw.SPDF <- merge(cln_Shp, GPW_pop, by.x="id", by.y="id")
 
-#NDVI -------------------------------------------------
+#MEAN NDVI -------------------------------------------------
 #Historic GIMMS NDVI
 GIMMS_hist <- NA
-GIMMS_hist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/historic_ndvi/historic_ndvi_SIMULATED_yearly.csv"
+GIMMS_hist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/historic_ndvi/historic_ndvi_SIMULATED_MEAN_yearly.csv"
 GIMMS_hist <- read.csv(GIMMS_hist)
 #Rename columns...
 for (i in 2:length(GIMMS_hist))
 {
   colnames(GIMMS_hist)[i] <- sub("_SIM_X","",colnames(GIMMS_hist)[i])
+  colnames(GIMMS_hist)[i] <- sub("NDVI","MeanN_",colnames(GIMMS_hist)[i])
+}
+#Drop extra ID column
+GIMMS_hist <- GIMMS_hist[-c(1)]
+
+#Merge
+kfw.SPDF <- merge(kfw.SPDF, GIMMS_hist, by.x="id", by.y="id")
+
+#Contemporary GIMMS NDVI
+GIMMS_cont <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ndvi/merge_year_mean.csv"
+GIMMS_cont <- read.csv(GIMMS_cont)
+#Rename columns...
+for (i in 2:length(GIMMS_cont))
+{
+  colnames(GIMMS_cont)[i] <- sub("X","MeanN_",colnames(GIMMS_cont)[i])
+}
+#Merge
+kfw.SPDF <- merge(kfw.SPDF, GIMMS_cont, by.x="id", by.y="id")
+
+NDVI_sub = kfw.SPDF@data[c(1,12:44)]
+names(NDVI_sub) <- sub("NDVI","",names(NDVI_sub))
+NDVI_long <- melt(NDVI_sub, id.vars=c("id"))
+
+ggplot() + geom_point(data=NDVI_long, aes(x=value, y=variable, colour=factor(id))) + scale_fill_manual(values=c("blue","cyan4"))
+
+#MAX NDVI -------------------------------------------------
+#Historic GIMMS NDVI
+GIMMS_hist <- NA
+GIMMS_hist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/historic_ndvi/historic_ndvi_SIMULATED_MAX_yearly.csv"
+GIMMS_hist <- read.csv(GIMMS_hist)
+#Rename columns...
+for (i in 2:length(GIMMS_hist))
+{
+  colnames(GIMMS_hist)[i] <- sub("NDVI","",colnames(GIMMS_hist)[i])
+  colnames(GIMMS_hist)[i] <- sub("_SIM_X","MaxN_",colnames(GIMMS_hist)[i])
 }
 #Drop extra ID column
 GIMMS_hist <- GIMMS_hist[-c(1)]
@@ -43,16 +78,47 @@ GIMMS_cont <- read.csv(GIMMS_cont)
 #Rename columns...
 for (i in 2:length(GIMMS_cont))
 {
-  colnames(GIMMS_cont)[i] <- sub("X","NDVI",colnames(GIMMS_cont)[i])
+  colnames(GIMMS_cont)[i] <- sub("NDVI","",colnames(GIMMS_cont)[i])
+  colnames(GIMMS_cont)[i] <- sub("X","MaxN_",colnames(GIMMS_cont)[i])
 }
 #Merge
 kfw.SPDF <- merge(kfw.SPDF, GIMMS_cont, by.x="id", by.y="id")
 
 NDVI_sub = kfw.SPDF@data[c(1,12:44)]
 names(NDVI_sub) <- sub("NDVI","",names(NDVI_sub))
-NDVI_long <- melt(NDVI_sub, id.vars=c("id"))
+NDVI_long_max <- melt(NDVI_sub, id.vars=c("id"))
 
-ggplot() + geom_point(data=NDVI_long, aes(x=value, y=variable, colour=factor(id))) + scale_fill_manual(values=c("blue","cyan4"))
+ggplot() + geom_point(data=NDVI_long_max, aes(x=value, y=variable, colour=factor(id))) + scale_fill_manual(values=c("blue","cyan4"))
+
+#Continious NDVI - LTDR - MEAN----------------------------------------------------
+LTDR_mean <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ltdr_ndvi/merge_year_mean.csv"
+LTDR_mean <- read.csv(LTDR_mean)
+#Rename columns...
+for (i in 2:length(LTDR_mean))
+{
+  colnames(LTDR_mean)[i] <- sub("NDVI","",colnames(LTDR_mean)[i])
+  colnames(LTDR_mean)[i] <- sub("X","MeanL_",colnames(LTDR_mean)[i])
+}
+
+
+#Merge it in
+kfw.SPDF <- merge(kfw.SPDF, LTDR_mean, by.x="id", by.y="id")
+
+
+#Continious NDVI - LTDR - MAX----------------------------------------------------
+LTDR_max <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ltdr_ndvi/merge_year_max.csv"
+LTDR_max <- read.csv(LTDR_max)
+#Rename columns...
+for (i in 2:length(LTDR_max))
+{
+  colnames(LTDR_max)[i] <- sub("NDVI","",colnames(LTDR_max)[i])
+  colnames(LTDR_max)[i] <- sub("X","MaxL_",colnames(LTDR_max)[i])
+}
+
+
+#Merge it in
+kfw.SPDF <- merge(kfw.SPDF, LTDR_max, by.x="id", by.y="id")
+
 
 #Slope ----------------------------------------------------
 SRTM_slope <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/srtm_slope/SRTM_500m_slope.shp"

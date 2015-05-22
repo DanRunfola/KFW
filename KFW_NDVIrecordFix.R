@@ -25,7 +25,7 @@ colnames(GPW_pop)[4] <- "Pop_2000"
 kfw.SPDF <- merge(cln_Shp, GPW_pop, by.x="id", by.y="id")
 
 #Historic GIMMS NDVI
-GIMMS_hist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/historic_ndvi/merge_year_max.csv"
+GIMMS_hist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/historic_ndvi/merge_year_mean.csv"
 GIMMS_hist <- read.csv(GIMMS_hist)
 #Rename columns...
 for (i in 2:length(GIMMS_hist))
@@ -36,7 +36,7 @@ for (i in 2:length(GIMMS_hist))
 kfw.SPDF <- merge(kfw.SPDF, GIMMS_hist, by.x="id", by.y="id")
 
 #Contemporary GIMMS NDVI
-GIMMS_cont <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ndvi/merge_year_max.csv"
+GIMMS_cont <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ndvi/merge_year_mean.csv"
 GIMMS_cont <- read.csv(GIMMS_cont)
 #Rename columns...
 for (i in 2:length(GIMMS_cont))
@@ -84,7 +84,7 @@ kfw.SPDF <- merge(cln_Shp, GPW_pop, by.x="id", by.y="id")
 
 #Historic GIMMS NDVI
 GIMMS_hist <- NA
-GIMMS_hist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/historic_ndvi/historic_ndvi_SIMULATED_yearly.csv"
+GIMMS_hist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/historic_ndvi/historic_ndvi_SIMULATED_MEAN_yearly.csv"
 GIMMS_hist <- read.csv(GIMMS_hist)
 #Rename columns...
 for (i in 2:length(GIMMS_hist))
@@ -98,7 +98,7 @@ GIMMS_hist <- GIMMS_hist[-c(1)]
 kfw.SPDF <- merge(kfw.SPDF, GIMMS_hist, by.x="id", by.y="id")
 
 #Contemporary GIMMS NDVI
-GIMMS_cont <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ndvi/merge_year_max.csv"
+GIMMS_cont <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ndvi/merge_year_mean.csv"
 GIMMS_cont <- read.csv(GIMMS_cont)
 #Rename columns...
 for (i in 2:length(GIMMS_cont))
