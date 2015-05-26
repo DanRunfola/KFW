@@ -19,7 +19,7 @@ View(dta_Shp)
 dta_Shp$pre_trend_NDVI_mean <- timeRangeTrend(dta_Shp,"MeanL_[0-9][0-9][0-9][0-9]",1982,1995,"SP_ID")
 dta_Shp$pre_trend_NDVI_max <- timeRangeTrend(dta_Shp,"MaxL_[0-9][0-9][0-9][0-9]",1982,1995,"SP_ID")
 dta_Shp$NDVIslope_95_10 <- timeRangeTrend(dta_Shp,"MaxL_[0-9][0-9][0-9][0-9]",1995,2010,"SP_ID")
-dta_Shp@data["NDVIslopeChange_95_10"] <- dta_Shp@data["NDVIslope_95_10"] - dta_Shp@data["pre_trend_NDVI_mean"]
+dta_Shp@data["NDVIslopeChange_95_10"] <- dta_Shp@data["NDVIslope_95_10"] - dta_Shp@data["pre_trend_NDVI_max"]
 
 #NDVI Trends for 1995-2001
 dta_Shp$post_trend_NDVI_95_01 <- timeRangeTrend(dta_Shp,"MaxL_[0-9][0-9][0-9][0-9]",1995,2001,"SP_ID")
@@ -46,8 +46,8 @@ dta_Shp$pre_trend_precip_min <- timeRangeTrend(dta_Shp,"MinP_[0-9][0-9][0-9][0-9
 dta_Shp$post_trend_precip_mean <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-9]",1995,2010,"SP_ID")
 dta_Shp$post_trend_precip_max <- timeRangeTrend(dta_Shp,"MaxP_[0-9][0-9][0-9][0-9]",1995,2010,"SP_ID")
 dta_Shp$post_trend_precip_min <- timeRangeTrend(dta_Shp,"MinP_[0-9][0-9][0-9][0-9]",1995,2010,"SP_ID")
-dta_Shp$post_trend_precip_95_01 <- timeRangeTrend(dta_Shp,"MeanT_[0-9][0-9][0-9][0-9]",1995,2001,"SP_ID")
-dta_Shp$post_trend_precip_01_10 <- timeRangeTrend(dta_Shp,"MeanT_[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
+dta_Shp$post_trend_precip_95_01 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-9]",1995,2001,"SP_ID")
+dta_Shp$post_trend_precip_01_10 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
 
 #Make a binary for ever vs. never
 #dta_Shp@data["TrtBin"] <- 0
@@ -140,13 +140,21 @@ Data_Late <- psm_Pairs
 colnames(Data_Late@data)[(colnames(Data_Late@data)=="Pop_2000")] <- "Pop_B"
 colnames(Data_Late@data)[(colnames(Data_Late@data)=="MeanT_2001")] <- "MeanT_B"
 colnames(Data_Late@data)[(colnames(Data_Late@data)=="MeanP_2001")] <- "MeanP_B"
-colnames(Data_Late@data)[(colnames(Data_Late@data)=="post_trend_temp_01_10")] <- "post_trend_temp_mean"
-colnames(Data_Late@data)[(colnames(Data_Late@data)=="post_trend_precip_01_10")] <- "post_trend_precip_mean"
+colnames(Data_Late@data)[(colnames(Data_Late@data)=="post_trend_temp_01_10")] <- "post_trend_temp"
+colnames(Data_Late@data)[(colnames(Data_Late@data)=="post_trend_precip_01_10")] <- "post_trend_precip"
 #colnames(Data_Late@data)
 
-analyticModelLate <- "NDVIslopeChange_01_10 ~ TrtBin + pre_trend_NDVI_max + MaxL_1995 + terrai_are + Pop_B + MeanT_B + post_trend_temp_mean + 
-MeanP_B + post_trend_precip_mean + Slope + Elevation + Riv_Dist + Road_dist + factor(PSM_match_ID)"
+analyticModelLate <- "NDVIslopeChange_01_10 ~ TrtBin + pre_trend_NDVI_max + MaxL_1995 + terrai_are + Pop_B + MeanT_B + post_trend_temp + 
+MeanP_B + post_trend_precip + Slope + Elevation + Riv_Dist + Road_dist + factor(PSM_match_ID)"
 OutputLate=Stage2PSM(analyticModelLate,Data_Late,type="lm",table_out=TRUE)
+
+stargazer(analyticModelEarly1B,OutputEarly2$standardized,OutputEarly3$standardized,OutputLate$standardized,
+          keep=c("TrtBin", "pre_trend_NDVI_max","MaxL_1995", "terrai_are","Pop_B", "MeanT_B","post_trend_temp","MeanP_B",
+                 "post_trend_precip", "Slope","Elevation","Riv_Dist","Road_dist"),
+          covariate.labels=c("Treatment", "Pre-Trend NDVI", "Baseline NDVI","Area (hectares)", "Baseline Population Density",
+                             "Baseline Temperature", "Temperature Trends", "Baseline Precipitation", "Precipitation Trends",
+                             "Slope", "Elevation", "Distance to River", "Distance to Road"),
+          title="Regression Results", type="html", omit.stat=c("f","ser"), align=TRUE)
 
 #Ever vs. Never
 #analyticModelEver2, pair FEs, no covars, 1995-2010
@@ -166,6 +174,16 @@ colnames(Data_Ever3@data)[(colnames(Data_Ever3@data)=="post_trend_temp_mean")] <
 colnames(Data_Ever3@data)[(colnames(Data_Ever3@data)=="post_trend_precip_mean")] <- "post_trend_precip"
 #colnames(Data_Ever3@data)
 
-analyticModelEver3 <- "NDVIslopeChange_95_10 ~ TrtBin + pre_trend_NDVI_mean + MeanL_1995 + + terrai_are + Pop_B + MeanT_B + post_trend_temp +
+analyticModelEver3 <- "NDVIslopeChange_95_10 ~ TrtBin + pre_trend_NDVI_max + MaxL_1995 + + terrai_are + Pop_B + MeanT_B + post_trend_temp +
 MeanP_B + post_trend_precip + Slope + Elevation  + Riv_Dist + Road_dist + factor(PSM_match_ID)"
 OutputEver3=Stage2PSM(analyticModelEver3,Data_Ever3,type="lm",table_out=TRUE)
+
+# Results Tables
+
+stargazer(analyticModelEver1B, OutputEver2$standardized, OutputEver3$standardized,
+          keep=c("TrtBin", "terrai_are","Pop_1990","pre_trend_NDVI","NDVI1995","MeanT_1995","post_trend_temp_95_10","MeanP_1995",
+                 "post_trend_precip_95_10","Slope","Elevation","Riv_Dist","Road_dist"),
+          covariate.labels=c("Treatment","Area (hectares)", "Baseline Population Density", "Pre-Trend NDVI", "Baseline NDVI",
+                             "Baseline Temperature", "Temperature Trends", "Baseline Precipitation", "Precipitation Trends",
+                             "Slope", "Elevation", "Distance to River", "Distance to Road"),
+          title="Regression Results", type="html", omit.stat=c("f","ser"), align=TRUE)
