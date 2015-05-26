@@ -57,6 +57,10 @@ dta_Shp$post_trend_precip_01_10 <- timeRangeTrend(dta_Shp,"MeanT_[0-9][0-9][0-9]
 #demtable <- table(dta_Shp@data$TrtBin)
 #View(demtable)
 
+#Measure treatment as duration for each individual unit
+#dta_Shp@data["TrtBin"] <- 0
+#dta_Shp@data$TrtBin <- (2010 - dta_Shp@data["demend_y"])
+
 #Make a binary to test treatment..
 dta_Shp@data["TrtBin"] <- 0
 dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
@@ -72,10 +76,6 @@ psmModel <-  "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp_mean 
 pre_trend_temp_max + MeanP_1995 + pre_trend_precip_min + 
 pre_trend_NDVI_mean + pre_trend_NDVI_max + Slope + Elevation +  MeanL_1995 + MaxL_1995 + Riv_Dist + Road_dist +
 pre_trend_precip_mean + pre_trend_precip_max"
-
-psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp_mean + MeanP_1995 + pre_trend_precip_mean + 
-pre_trend_NDVI_mean + Slope + Elevation +  MeanL_1995 + Riv_Dist + Road_dist"
-
 
 # terrai_are + Pop_1990 + pre_trend_precip_mean + pre_trend_precip_max + 
 # pre_trend_precip_min + pre_trend_temp_mean + pre_trend_temp_max + pre_trend_temp_min +
