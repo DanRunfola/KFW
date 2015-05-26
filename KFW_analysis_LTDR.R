@@ -50,27 +50,27 @@ dta_Shp$post_trend_precip_95_01 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9]
 dta_Shp$post_trend_precip_01_10 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
 
 #Make a binary for ever vs. never
-#dta_Shp@data["TrtBin"] <- 0
-#dta_Shp@data$NA_check <- 0
-#dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
-#dta_Shp@data$TrtBin[dta_Shp@data$NA_check != 1] <- 1
-#demtable <- table(dta_Shp@data$TrtBin)
-#View(demtable)
+dta_Shp@data["TrtBin"] <- 0
+dta_Shp@data$NA_check <- 0
+dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
+dta_Shp@data$TrtBin[dta_Shp@data$NA_check != 1] <- 1
+demtable <- table(dta_Shp@data$TrtBin)
+View(demtable)
 
 #Measure treatment as duration for each individual unit
 #dta_Shp@data["TrtBin"] <- 0
 #dta_Shp@data$TrtBin <- (2010 - dta_Shp@data["demend_y"])
 
 #Make a binary to test treatment..
-dta_Shp@data["TrtBin"] <- 0
-dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
-dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
+#dta_Shp@data["TrtBin"] <- 0
+#dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
+#dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
 
 #Remove units that did not ever receive any treatment (within-sample test)
-dta_Shp@data$NA_check <- 0
-dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
-int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
-dta_Shp <- int_Shp
+#dta_Shp@data$NA_check <- 0
+#dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
+#int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
+#dta_Shp <- int_Shp
 
 psmModel <-  "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp_mean + pre_trend_temp_min + 
 pre_trend_temp_max + MeanP_1995 + pre_trend_precip_min + 
@@ -86,6 +86,13 @@ psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="support",visu
 drop_set<- c(drop_unmatched=TRUE,drop_method="None",drop_thresh=0.5)
 psm_Pairs <- SAT(dta = psmRes, mtd = "fastNN",constraints=c(groups="UF"),psm_eq = psmModel, ids = "id", drop_opts = drop_set, visual="TRUE", TrtBinColName="TrtBin")
 #c(groups=c("UF"),distance=NULL)
+trttable <- table (psm_Pairs@data$TrtBin)
+View(trttable)
+
+#Scale all of the data to get standardized coefficients, create psm_PairsB
+psm_PairsB <- psm_Pairs
+ind <- sapply(psm_PairsB@data, is.numeric)
+psm_PairsB@data[ind] <- lapply(psm_PairsB@data[ind],scale)
 
 # #Variables to include in the time series
 varList = c("MeanN_","MaxN_","MeanL_","MaxL_")
@@ -101,11 +108,6 @@ Stage2PSM(pModelA,psm_Long,type="cmreg", table_out=TRUE, opts=c("reu_id","Year")
 ViewTimeSeries(dta=dta_Shp,IDfield="reu_id",TrtField="TrtBin",idPre="MaxL_[0-9][0-9][0-9][0-9]")
 
 #Cross-section Models
-
-#Scale all of the data to get standardized coefficients, create psm_PairsB
-psm_PairsB <- psm_Pairs
-ind <- sapply(psm_PairsB@data, is.numeric)
-psm_PairsB@data[ind] <- lapply(psm_PairsB@data[ind],scale)
 
 ## Early vs. Late
 
@@ -157,6 +159,11 @@ stargazer(analyticModelEarly1B,OutputEarly2$standardized,OutputEarly3$standardiz
           title="Regression Results", type="html", omit.stat=c("f","ser"), align=TRUE)
 
 #Ever vs. Never
+
+#OLS, no pair FEs, no covars, 1995-2010
+summary(analyticModelEver1 <- lm(NDVIslopeChange_95_10 ~ TrtBin, data=psm_Pairs))
+summary(analyticModelEver1B <- lm(NDVIslopeChange_95_10 ~ TrtBin, data=psm_PairsB))
+
 #analyticModelEver2, pair FEs, no covars, 1995-2010
 
 analyticModelEver2 <- "NDVIslopeChange_95_10 ~ TrtBin + factor(PSM_match_ID)"
@@ -181,8 +188,8 @@ OutputEver3=Stage2PSM(analyticModelEver3,Data_Ever3,type="lm",table_out=TRUE)
 # Results Tables
 
 stargazer(analyticModelEver1B, OutputEver2$standardized, OutputEver3$standardized,
-          keep=c("TrtBin", "terrai_are","Pop_1990","pre_trend_NDVI","NDVI1995","MeanT_1995","post_trend_temp_95_10","MeanP_1995",
-                 "post_trend_precip_95_10","Slope","Elevation","Riv_Dist","Road_dist"),
+          keep=c("TrtBin", "terrai_are","Pop_B","pre_trend_NDVI_max","MaxL_1995","MeanT_B","post_trend_temp","MeanP_B",
+                 "post_trend_precip","Slope","Elevation","Riv_Dist","Road_dist"),
           covariate.labels=c("Treatment","Area (hectares)", "Baseline Population Density", "Pre-Trend NDVI", "Baseline NDVI",
                              "Baseline Temperature", "Temperature Trends", "Baseline Precipitation", "Precipitation Trends",
                              "Slope", "Elevation", "Distance to River", "Distance to Road"),
