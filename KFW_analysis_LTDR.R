@@ -57,23 +57,16 @@ dta_Shp@data$TrtBin[dta_Shp@data$NA_check != 1] <- 1
 demtable <- table(dta_Shp@data$TrtBin)
 View(demtable)
 
-#Measure treatment as duration for each individual unit
-#dta_Shp@data["TrtBin"] <- 0
-#dta_Shp@data$TrtBin <- (2010 - dta_Shp@data["demend_y"])
-
 #Make a binary to test treatment..
-#dta_Shp@data["TrtBin"] <- 0
-#dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
-#dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
-
-#Remove units that did not ever receive any treatment (within-sample test)
-#dta_Shp@data$NA_check <- 0
-#dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
-#int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
-#dta_Shp <- int_Shp
-
-#psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp_mean + MeanP_1995 + pre_trend_precip_mean + 
-#pre_trend_NDVI_mean + Slope + Elevation +  MeanL_1995 + Riv_Dist + Road_dist"
+# dta_Shp@data["TrtBin"] <- 0
+# dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
+# dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
+# 
+# #Remove units that did not ever receive any treatment (within-sample test)
+# dta_Shp@data$NA_check <- 0
+# dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
+# int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
+# dta_Shp <- int_Shp
 
 psmModel <-  "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp_mean + pre_trend_temp_min + 
 pre_trend_temp_max + MeanP_1995 + pre_trend_precip_min + 
@@ -149,12 +142,13 @@ analyticModelLate <- "NDVIslopeChange_01_10 ~ TrtBin + pre_trend_NDVI_mean + Mea
 MeanP_B + post_trend_precip + Slope + Elevation + Riv_Dist + Road_dist + factor(PSM_match_ID)"
 OutputLate=Stage2PSM(analyticModelLate,Data_Late,type="lm",table_out=TRUE)
 
-stargazer(analyticModelEarly1B,OutputEarly2$standardized,OutputEarly3$standardized,OutputLate$standardized,
+stargazer(OutputEarly2$standardized,OutputEarly3$standardized,OutputLate$standardized,
           keep=c("TrtBin", "pre_trend_NDVI_mean","MeanL_1995", "terrai_are","Pop_B", "MeanT_B","post_trend_temp","MeanP_B",
                  "post_trend_precip", "Slope","Elevation","Riv_Dist","Road_dist"),
           covariate.labels=c("Treatment", "Pre-Trend NDVI", "Baseline NDVI","Area (hectares)", "Baseline Population Density",
                              "Baseline Temperature", "Temperature Trends", "Baseline Precipitation", "Precipitation Trends",
                              "Slope", "Elevation", "Distance to River", "Distance to Road"),
+          dep.var.labels=c("Mean NDVI Rate 1995-2001 "," Mean NDVI Rate 2001-2010"),
           title="Regression Results", type="html", omit.stat=c("f","ser"), align=TRUE)
 
 #Ever vs. Never
@@ -192,7 +186,7 @@ stargazer(OutputEver2$standardized, OutputEver3$standardized,
           covariate.labels=c("Treatment","Area (hectares)", "Baseline Population Density", "Pre-Trend NDVI", "Baseline NDVI",
                              "Baseline Temperature", "Temperature Trends", "Baseline Precipitation", "Precipitation Trends",
                              "Slope", "Elevation", "Distance to River", "Distance to Road"),
-          dep.var.labels=c("Change in Deforestation Rate, 1995-2010"),
+          dep.var.labels=c("Mean NDVI Rate 1995-2010"),
           title="Regression Results", type="html", omit.stat=c("f","ser"), align=TRUE)
 
 #Summary Tables
