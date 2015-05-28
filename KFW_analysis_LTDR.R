@@ -182,17 +182,48 @@ colnames(Data_Ever3@data)[(colnames(Data_Ever3@data)=="post_trend_precip_mean")]
 #colnames(Data_Ever3@data)
 
 analyticModelEver3 <- "NDVIslopeChange_95_10 ~ TrtBin + pre_trend_NDVI_mean + MeanL_1995 + terrai_are + Pop_B + MeanT_B + post_trend_temp +
-MeanP_B + post_trend_precip + Slope + Elevation  + Riv_Dist + Road_dist + factor(PSM_match_id)"
+MeanP_B + post_trend_precip + Slope + Elevation  + Riv_Dist + Road_dist + factor(PSM_match_ID)"
 
 OutputEver3=Stage2PSM(analyticModelEver3,Data_Ever3,type="lm",table_out=TRUE)
 
-# Results Tables
-
-stargazer(analyticModelEver1B, OutputEver2$standardized, OutputEver3$standardized,
+stargazer(OutputEver2$standardized, OutputEver3$standardized,
           keep=c("TrtBin", "terrai_are","Pop_B","pre_trend_NDVI_mean","MeanL_1995","MeanT_B","post_trend_temp","MeanP_B",
                  "post_trend_precip","Slope","Elevation","Riv_Dist","Road_dist"),
           covariate.labels=c("Treatment","Area (hectares)", "Baseline Population Density", "Pre-Trend NDVI", "Baseline NDVI",
                              "Baseline Temperature", "Temperature Trends", "Baseline Precipitation", "Precipitation Trends",
                              "Slope", "Elevation", "Distance to River", "Distance to Road"),
+          dep.var.labels=c("Change in Deforestation Rate, 1995-2010"),
           title="Regression Results", type="html", omit.stat=c("f","ser"), align=TRUE)
+
+#Summary Tables
+
+library(psych)
+describeBy(psm_Pairs$terrai_are, psm_Pairs$TrtBin)
+describeBy(psm_Pairs$terrai_are, psm_Pairs$TrtBin)
+describeBy(psm_Pairs$Pop_1990, psm_Pairs$TrtBin)
+describeBy(psm_Pairs$MeanL_1995, psm_Pairs$TrtBin)
+describeBy(psm_Pairs$MaxL_1995, psm_Pairs$TrtBin)
+describeBy(psm_Pairs$MeanT_1995, psm_Pairs$TrtBin)
+describeBy(psm_Pairs$MeanP_1995, psm_Pairs$TrtBin)
+describeBy(psm_Pairs$Slope, psm_Pairs$TrtBin)
+describeBy(psm_Pairs$Elevation, psm_Pairs$TrtBin)
+describeBy(psm_Pairs$Riv_Dist, psm_Pairs$TrtBin)
+describeBy(psm_Pairs$Road_dist, psm_Pairs$TrtBin)
+
+describeBy(dta_Shp$terrai_are, dta_Shp$TrtBin)
+describeBy(dta_Shp$terrai_are, dta_Shp$TrtBin)
+describeBy(dta_Shp$terrai_are, dta_Shp$TrtBin)
+describeBy(dta_Shp$terrai_are, dta_Shp$TrtBin)
+describeBy(dta_Shp$terrai_are, dta_Shp$TrtBin)
+describeBy(dta_Shp$terrai_are, dta_Shp$TrtBin)
+describeBy(dta_Shp$terrai_are, dta_Shp$TrtBin)
+describeBy(dta_Shp$terrai_are, dta_Shp$TrtBin)
+describeBy(dta_Shp$terrai_are, dta_Shp$TrtBin)
+describeBy(dta_Shp$terrai_are, dta_Shp$TrtBin)
+describeBy(dta_Shp$terrai_are, dta_Shp$TrtBin)
+describeBy(dta_Shp$terrai_are, dta_Shp$TrtBin)
+describeBy(dta_Shp$terrai_are, dta_Shp$TrtBin)
+
+
+
 
