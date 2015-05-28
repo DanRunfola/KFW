@@ -72,10 +72,10 @@ summary(lm(level ~ TrtBin + factor(PSM_match_ID),data=psm_test))
 varList = c("MeanN_","MaxN_","MeanL_","MaxL_")
 psm_Long <- BuildTimeSeries(dta=psm_Pairs,idField="reu_id",varList_pre=varList,1982,2010,colYears="demend_y",interpYears=c("Slope","Road_dist","Riv_Dist","UF","Elevation","terrai_are","Pop_","MeanT_","MeanP_","TrtMnt","MaxT_","MaxP_","MinP_","MinT_"))
 
-
+psm_Long$Year <- as.numeric(psm_Long$Year)
 #Panel Models
 #psm_Long$TrtPair <- as.numeric(psm_Long$PSM_match_ID) * psm_Long$TrtMnt
-pModelA <- "MaxL_ ~ TrtMnt + MeanT_ + MeanP_ + Pop_ + MaxT_ + MaxP_ + MinT_ + MinP_  + factor(reu_id):Year_num"
+pModelA <- "MeanL_ ~ TrtMnt + MeanT_ + MeanP_ + Pop_ + MaxT_ + MaxP_ + MinT_ + MinP_  + factor(reu_id) + Year"
 
 panelModel <- Stage2PSM(pModelA,psm_Long,type="cmreg", table_out=TRUE, opts=c("reu_id","Year"))
 

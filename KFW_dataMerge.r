@@ -14,7 +14,7 @@ cln_Shp <- src_Shp[,c("terrai_nom","terrai_are","reu_id","id","UF", "pop","demen
 "apprend_m","apprend_y","regend_m","regend_y","stagenum")]
 
 #Population -------------------------------------------
-GPW_pop <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/gpw/extract_merge.csv"
+GPW_pop <- "/mnt/said/REU/projects/kfw/extracts/gpw/extract_merge.csv"
 GPW_pop <- read.csv(GPW_pop)
 #Rename the columns for easier interpretation later..
 colnames(GPW_pop)[2] <- "Pop_1990"
@@ -26,7 +26,7 @@ kfw.SPDF <- merge(cln_Shp, GPW_pop, by.x="id", by.y="id")
 #MEAN NDVI -------------------------------------------------
 #Historic GIMMS NDVI
 GIMMS_hist <- NA
-GIMMS_hist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/historic_ndvi/historic_ndvi_SIMULATED_MEAN_yearly.csv"
+GIMMS_hist <- "/mnt/said/REU/projects/kfw/extracts/historic_ndvi/historic_ndvi_SIMULATED_MEAN_yearly.csv"
 GIMMS_hist <- read.csv(GIMMS_hist)
 #Rename columns...
 for (i in 2:length(GIMMS_hist))
@@ -41,7 +41,7 @@ GIMMS_hist <- GIMMS_hist[-c(1)]
 kfw.SPDF <- merge(kfw.SPDF, GIMMS_hist, by.x="id", by.y="id")
 
 #Contemporary GIMMS NDVI
-GIMMS_cont <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ndvi/merge_year_mean.csv"
+GIMMS_cont <- "/mnt/said/REU/projects/kfw/extracts/ndvi/merge_year_mean.csv"
 GIMMS_cont <- read.csv(GIMMS_cont)
 #Rename columns...
 for (i in 2:length(GIMMS_cont))
@@ -60,7 +60,7 @@ ggplot() + geom_point(data=NDVI_long, aes(x=value, y=variable, colour=factor(id)
 #MAX NDVI -------------------------------------------------
 #Historic GIMMS NDVI
 GIMMS_hist <- NA
-GIMMS_hist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/historic_ndvi/historic_ndvi_SIMULATED_MAX_yearly.csv"
+GIMMS_hist <- "/mnt/said/REU/projects/kfw/extracts/historic_ndvi/historic_ndvi_SIMULATED_MAX_yearly.csv"
 GIMMS_hist <- read.csv(GIMMS_hist)
 #Rename columns...
 for (i in 2:length(GIMMS_hist))
@@ -75,7 +75,7 @@ GIMMS_hist <- GIMMS_hist[-c(1)]
 kfw.SPDF <- merge(kfw.SPDF, GIMMS_hist, by.x="id", by.y="id")
 
 #Contemporary GIMMS NDVI
-GIMMS_cont <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ndvi/merge_year_max.csv"
+GIMMS_cont <- "/mnt/said/REU/projects/kfw/extracts/ndvi/merge_year_max.csv"
 GIMMS_cont <- read.csv(GIMMS_cont)
 #Rename columns...
 for (i in 2:length(GIMMS_cont))
@@ -93,7 +93,7 @@ NDVI_long_max <- melt(NDVI_sub, id.vars=c("id"))
 ggplot() + geom_point(data=NDVI_long_max, aes(x=value, y=variable, colour=factor(id))) + scale_fill_manual(values=c("blue","cyan4"))
 
 #Continious NDVI - LTDR - MEAN----------------------------------------------------
-LTDR_mean <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ltdr_ndvi/merge_year_mean.csv"
+LTDR_mean <- "/mnt/said/REU/projects/kfw/extracts/ltdr_ndvi/merge_year_mean.csv"
 LTDR_mean <- read.csv(LTDR_mean)
 #Rename columns...
 for (i in 2:length(LTDR_mean))
@@ -108,7 +108,7 @@ kfw.SPDF <- merge(kfw.SPDF, LTDR_mean, by.x="id", by.y="id")
 
 
 #Continious NDVI - LTDR - MAX----------------------------------------------------
-LTDR_max <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/ltdr_ndvi/merge_year_max.csv"
+LTDR_max <- "/mnt/said/REU/projects/kfw/extracts/ltdr_ndvi/merge_year_max.csv"
 LTDR_max <- read.csv(LTDR_max)
 #Rename columns...
 for (i in 2:length(LTDR_max))
@@ -123,7 +123,7 @@ kfw.SPDF <- merge(kfw.SPDF, LTDR_max, by.x="id", by.y="id")
 
 
 #Slope ----------------------------------------------------
-SRTM_slope <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/srtm_slope/SRTM_500m_slope.shp"
+SRTM_slope <- "/mnt/said/REU/projects/kfw/extracts/srtm_slope/SRTM_500m_slope.shp"
 SRTM_slope <- readShapePoly(SRTM_slope)
 SRTM_slope <- SRTM_slope@data
 #Keep only the relevant columns
@@ -135,7 +135,7 @@ colnames(SRTM_slope)[2] <- "Slope"
 kfw.SPDF <- merge(kfw.SPDF, SRTM_slope, by.x="id", by.y="id")
 
 #Elevation -----------------------------------------------
-SRTM_elev <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/srtm/SRTM_500m.shp"
+SRTM_elev <- "/mnt/said/REU/projects/kfw/extracts/srtm/SRTM_500m.shp"
 SRTM_elev <- readShapePoly(SRTM_elev)
 SRTM_elev <- SRTM_elev@data
 #Keep only the relevant columns
@@ -147,7 +147,7 @@ colnames(SRTM_elev)[2] <- "Elevation"
 kfw.SPDF <- merge(kfw.SPDF, SRTM_elev, by.x="id", by.y="id")
 
 #Urban travel time ---------------------------------------
-urb_trv <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/accessibility_map/access_50k.shp"
+urb_trv <- "/mnt/said/REU/projects/kfw/extracts/accessibility_map/access_50k.shp"
 urb_trv <- readShapePoly(urb_trv)
 urb_trv <- urb_trv@data
 #Keep only the relevant columns
@@ -159,7 +159,7 @@ colnames(urb_trv)[2] <- "UrbTravTime"
 kfw.SPDF <- merge(kfw.SPDF, urb_trv, by.x="id", by.y="id")
 
 #Air Temperature----------------------------------------------
-air_temp <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/terrestrial_air_temperature/extract_merge.csv"
+air_temp <- "/mnt/said/REU/projects/kfw/extracts/terrestrial_air_temperature/extract_merge.csv"
 air_temp <- read.csv(air_temp)
 
 for (i in 2:length(air_temp))
@@ -197,7 +197,7 @@ kfw.SPDF <- merge(kfw.SPDF, air_temp_min, by.x="id", by.y="id")
 
 
 #Precipitation----------------------------------------------
-precip <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/terrestrial_precipitation/extract_merge.csv"
+precip <- "/mnt/said/REU/projects/kfw/extracts/terrestrial_precipitation/extract_merge.csv"
 precip <- read.csv(precip)
 
 for (i in 2:length(precip))
@@ -238,7 +238,7 @@ kfw.SPDF@data["terrai_are"] <- lapply(kfw.SPDF@data["terrai_are"], function(x) a
 
 
 #Distance to Rivers
-Riv_dist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/rivers_dist/rivers_dist_sa.shp"
+Riv_dist <- "/mnt/said/REU/projects/kfw/extracts/rivers_dist/rivers_dist_sa.shp"
 Riv_dist <- readShapePoly(Riv_dist)
 Riv_dist <- Riv_dist@data
 
@@ -250,7 +250,7 @@ colnames(Riv_dist)[2] <- "Riv_Dist"
 kfw.SPDF <- merge(kfw.SPDF, Riv_dist, by.x="id", by.y="id")
 
 #Distance to Roads
-Road_dist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/roads_dist/roads_dist_sa.shp"
+Road_dist <- "/mnt/said/REU/projects/kfw/extracts/roads_dist/roads_dist_sa.shp"
 Road_dist <- readShapePoly(Road_dist)
 Road_dist<- Road_dist@data
 
@@ -261,4 +261,4 @@ colnames(Road_dist)[2] <- "Road_dist"
 #Merge it in
 kfw.SPDF <- merge(kfw.SPDF, Road_dist, by.x="id", by.y="id")
 
-writePolyShape(kfw.SPDF,"Processed_Data/Matched_Indigenous_Lands_DemResults.shp")
+writePolyShape(kfw.SPDF,"Processed_Data/Matched_Indigenous_Lands_ProcessedResults.shp")
