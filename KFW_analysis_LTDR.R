@@ -72,14 +72,13 @@ View(demtable)
 #int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
 #dta_Shp <- int_Shp
 
+#psmModel <- "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp_mean + MeanP_1995 + pre_trend_precip_mean + 
+#pre_trend_NDVI_mean + Slope + Elevation +  MeanL_1995 + Riv_Dist + Road_dist"
+
 psmModel <-  "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp_mean + pre_trend_temp_min + 
 pre_trend_temp_max + MeanP_1995 + pre_trend_precip_min + 
 pre_trend_NDVI_mean + pre_trend_NDVI_max + Slope + Elevation +  MeanL_1995 + MaxL_1995 + Riv_Dist + Road_dist +
 pre_trend_precip_mean + pre_trend_precip_max"
-
-# terrai_are + Pop_1990 + pre_trend_precip_mean + pre_trend_precip_max + 
-# pre_trend_precip_min + pre_trend_temp_mean + pre_trend_temp_max + pre_trend_temp_min +
-# pre_trend_NDVI + Slope + Elevation +  MeanP_1995 + MeanT_1995 + MaxN_1995 + MeanN_1995 + Riv_Dist + Road_dist
 
 psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="support",visual=TRUE)
 
@@ -161,6 +160,7 @@ stargazer(analyticModelEarly1B,OutputEarly2$standardized,OutputEarly3$standardiz
 #Ever vs. Never
 
 #OLS, no pair FEs, no covars, 1995-2010
+
 summary(analyticModelEver1 <- lm(NDVIslopeChange_95_10 ~ TrtBin, data=psm_Pairs))
 summary(analyticModelEver1B <- lm(NDVIslopeChange_95_10 ~ TrtBin, data=psm_PairsB))
 
@@ -181,8 +181,9 @@ colnames(Data_Ever3@data)[(colnames(Data_Ever3@data)=="post_trend_temp_mean")] <
 colnames(Data_Ever3@data)[(colnames(Data_Ever3@data)=="post_trend_precip_mean")] <- "post_trend_precip"
 #colnames(Data_Ever3@data)
 
-analyticModelEver3 <- "NDVIslopeChange_95_10 ~ TrtBin + pre_trend_NDVI_mean + MeanL_1995 + + terrai_are + Pop_B + MeanT_B + post_trend_temp +
-MeanP_B + post_trend_precip + Slope + Elevation  + Riv_Dist + Road_dist + factor(PSM_match_ID)"
+analyticModelEver3 <- "NDVIslopeChange_95_10 ~ TrtBin + pre_trend_NDVI_mean + MeanL_1995 + terrai_are + Pop_B + MeanT_B + post_trend_temp +
+MeanP_B + post_trend_precip + Slope + Elevation  + Riv_Dist + Road_dist + factor(PSM_match_id)"
+
 OutputEver3=Stage2PSM(analyticModelEver3,Data_Ever3,type="lm",table_out=TRUE)
 
 # Results Tables
@@ -194,3 +195,4 @@ stargazer(analyticModelEver1B, OutputEver2$standardized, OutputEver3$standardize
                              "Baseline Temperature", "Temperature Trends", "Baseline Precipitation", "Precipitation Trends",
                              "Slope", "Elevation", "Distance to River", "Distance to Road"),
           title="Regression Results", type="html", omit.stat=c("f","ser"), align=TRUE)
+
