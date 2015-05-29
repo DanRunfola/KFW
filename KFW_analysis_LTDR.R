@@ -58,7 +58,7 @@ dta_Shp@data$TrtBin[dta_Shp@data$NA_check != 1] <- 1
 demtable <- table(dta_Shp@data$TrtBin)
 View(demtable)
 
-#Make a binary to test treatment..
+# Make a binary to test treatment..
 # dta_Shp@data["TrtBin"] <- 0
 # dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
 # dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
@@ -151,7 +151,7 @@ stargazer(OutputEarly2$standardized,OutputEarly3$standardized,OutputLate$standar
           covariate.labels=c("Treatment", "Pre-Trend NDVI", "Baseline NDVI","Area (hectares)", "Baseline Population Density",
                              "Baseline Temperature", "Temperature Trends", "Baseline Precipitation", "Precipitation Trends",
                              "Slope", "Elevation", "Distance to River", "Distance to Road"),
-          dep.var.labels=c("Max NDVI Rate 1995-2001 "," Max NDVI Rate 2001-2010"),
+          dep.var.labels=c("Max NDVI 1995-2001 "," Max NDVI 2001-2010"),
           title="Regression Results", type="html", omit.stat=c("f","ser"), align=TRUE)
 
 #Ever vs. Never
@@ -184,12 +184,12 @@ MeanP_B + post_trend_precip + Slope + Elevation  + Riv_Dist + Road_dist + factor
 OutputEver3=Stage2PSM(analyticModelEver3,Data_Ever3,type="lm",table_out=TRUE)
 
 stargazer(OutputEver2$standardized, OutputEver3$standardized,
-          keep=c("TrtBin", "terrai_are","Pop_B","pre_trend_NDVI_max","MaxL_1995","MeanT_B","post_trend_temp","MeanP_B",
+          keep=c("TrtBin","pre_trend_NDVI_max","MaxL_1995", "terrai_are","Pop_B","MeanT_B","post_trend_temp","MeanP_B",
                  "post_trend_precip","Slope","Elevation","Riv_Dist","Road_dist"),
-          covariate.labels=c("Treatment","Area (hectares)", "Baseline Population Density", "Pre-Trend NDVI", "Baseline NDVI",
+          covariate.labels=c("Treatment", "Pre-Trend NDVI", "Baseline NDVI","Area (hectares)","Baseline Population Density",
                              "Baseline Temperature", "Temperature Trends", "Baseline Precipitation", "Precipitation Trends",
                              "Slope", "Elevation", "Distance to River", "Distance to Road"),
-          dep.var.labels=c("Max NDVI Rate 1995-2010"),
+          dep.var.labels=c("Max NDVI 1995-2010"),
           title="Regression Results", type="html", omit.stat=c("f","ser"), align=TRUE)
 
 #Summary Tables
