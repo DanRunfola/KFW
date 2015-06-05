@@ -22,10 +22,10 @@ dta_Shp$NDVIslope_95_10 <- timeRangeTrend(dta_Shp,"MaxL_[0-9][0-9][0-9][0-9]",19
 dta_Shp@data["NDVIslopeChange_95_10"] <- dta_Shp$MeanL_2010 - dta_Shp$MeanL_1995
 
 #NDVI Trends for 1995-2001
-dta_Shp$post_trend_NDVI_95_01 <- timeRangeTrend(dta_Shp,"MaxL_[0-9][0-9][0-9][0-9]",1995,2001,"SP_ID")
+dta_Shp$post_trend_NDVI_95_01 <- timeRangeTrend(dta_Shp,"MeanL_[0-9][0-9][0-9][0-9]",1995,2001,"SP_ID")
 dta_Shp@data["NDVIslopeChange_95_01"] <- dta_Shp$MeanL_2001 - dta_Shp$MeanL_1995
 #NDVI Trends for 2001-2010
-dta_Shp$post_trend_NDVI_01_10 <- timeRangeTrend(dta_Shp,"MaxL_[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
+dta_Shp$post_trend_NDVI_01_10 <- timeRangeTrend(dta_Shp,"MeanL_[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
 dta_Shp@data["NDVIslopeChange_01_10"] <- dta_Shp$MeanL_2010 - dta_Shp$MeanL_2001
 #dta_Shp@data["NDVIslopeChange_01_10"] <- dta_Shp@data["post_trend_NDVI_01_10"] - dta_Shp@data["pre_trend_NDVI_max"]
 
@@ -51,25 +51,25 @@ dta_Shp$post_trend_precip_95_01 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9]
 dta_Shp$post_trend_precip_01_10 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
 
 #Make a binary for ever vs. never
-dta_Shp@data["TrtBin"] <- 0
-dta_Shp@data$NA_check <- 0
-dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
-dta_Shp@data$TrtBin[dta_Shp@data$NA_check != 1] <- 1
-demtable <- table(dta_Shp@data$TrtBin)
-View(demtable)
-
-# Make a binary to test treatment..
 # dta_Shp@data["TrtBin"] <- 0
-# dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
-# dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
-# 
-# #Remove units that did not ever receive any treatment (within-sample test)
 # dta_Shp@data$NA_check <- 0
 # dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
-# int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
-# dta_Shp <- int_Shp
+# dta_Shp@data$TrtBin[dta_Shp@data$NA_check != 1] <- 1
 # demtable <- table(dta_Shp@data$TrtBin)
 # View(demtable)
+
+# Make a binary to test treatment..
+dta_Shp@data["TrtBin"] <- 0
+dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
+dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
+
+#Remove units that did not ever receive any treatment (within-sample test)
+dta_Shp@data$NA_check <- 0
+dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
+int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
+dta_Shp <- int_Shp
+demtable <- table(dta_Shp@data$TrtBin)
+View(demtable)
 
 psmModel <-  "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp_mean + pre_trend_temp_min + 
 pre_trend_temp_max + MeanP_1995 + pre_trend_precip_min + 
