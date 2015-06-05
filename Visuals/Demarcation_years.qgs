@@ -1,0 +1,1522 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis projectname="" version="2.0.1-Dufour">
+    <title></title>
+    <mapcanvas>
+        <units>degrees</units>
+        <extent>
+            <xmin>-79.0043686381316661</xmin>
+            <ymin>-20.05499265870128767</ymin>
+            <xmax>-32.14820911399231562</xmax>
+            <ymax>10.46342667330422138</ymax>
+        </extent>
+        <projections>0</projections>
+        <destinationsrs>
+            <spatialrefsys>
+                <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+                <srsid>3452</srsid>
+                <srid>4326</srid>
+                <authid>EPSG:4326</authid>
+                <description>WGS 84</description>
+                <projectionacronym>longlat</projectionacronym>
+                <ellipsoidacronym>WGS84</ellipsoidacronym>
+                <geographicflag>true</geographicflag>
+            </spatialrefsys>
+        </destinationsrs>
+    </mapcanvas>
+    <legend updateDrawingOrder="true" activeLayer="Matched_Indigenous_Lands_ProcessedResults20150528145506811">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="Matched_Indigenous_Lands_ProcessedResults" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="Matched_Indigenous_Lands_ProcessedResults20150528145506811" visible="1"/>
+            </filegroup>
+        </legendlayer>
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="BRA_adm1" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="BRA_adm120150528155757354" visible="1"/>
+            </filegroup>
+        </legendlayer>
+    </legend>
+    <projectlayers layercount="2">
+        <maplayer minimumScale="0" maximumScale="1e+08" minLabelScale="0" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
+            <id>BRA_adm120150528155757354</id>
+            <datasource>./BRA_adm1.shp</datasource>
+            <title></title>
+            <abstract></abstract>
+            <keywordList>
+                <value></value>
+            </keywordList>
+            <layername>BRA_adm1</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+                    <srsid>3452</srsid>
+                    <srid>4326</srid>
+                    <authid>EPSG:4326</authid>
+                    <description>WGS 84</description>
+                    <projectionacronym>longlat</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>true</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <provider encoding="System">ogr</provider>
+            <previewExpression></previewExpression>
+            <vectorjoins/>
+            <renderer-v2 symbollevels="0" type="singleSymbol">
+                <symbols>
+                    <symbol alpha="0.721569" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="255,255,255,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </symbols>
+                <rotation field=""/>
+                <sizescale field="" scalemethod="area"/>
+            </renderer-v2>
+            <customproperties>
+                <property key="labeling" value="pal"/>
+                <property key="labeling/addDirectionSymbol" value="false"/>
+                <property key="labeling/angleOffset" value="0"/>
+                <property key="labeling/blendMode" value="0"/>
+                <property key="labeling/bufferBlendMode" value="0"/>
+                <property key="labeling/bufferColorA" value="255"/>
+                <property key="labeling/bufferColorB" value="255"/>
+                <property key="labeling/bufferColorG" value="255"/>
+                <property key="labeling/bufferColorR" value="255"/>
+                <property key="labeling/bufferDraw" value="false"/>
+                <property key="labeling/bufferJoinStyle" value="64"/>
+                <property key="labeling/bufferNoFill" value="false"/>
+                <property key="labeling/bufferSize" value="1"/>
+                <property key="labeling/bufferSizeInMapUnits" value="false"/>
+                <property key="labeling/bufferTransp" value="0"/>
+                <property key="labeling/centroidWhole" value="false"/>
+                <property key="labeling/decimals" value="3"/>
+                <property key="labeling/displayAll" value="false"/>
+                <property key="labeling/dist" value="0"/>
+                <property key="labeling/distInMapUnits" value="false"/>
+                <property key="labeling/enabled" value="false"/>
+                <property key="labeling/fieldName" value=""/>
+                <property key="labeling/fontBold" value="true"/>
+                <property key="labeling/fontCapitals" value="0"/>
+                <property key="labeling/fontFamily" value="Ubuntu"/>
+                <property key="labeling/fontItalic" value="false"/>
+                <property key="labeling/fontLetterSpacing" value="0"/>
+                <property key="labeling/fontLimitPixelSize" value="false"/>
+                <property key="labeling/fontMaxPixelSize" value="10000"/>
+                <property key="labeling/fontMinPixelSize" value="3"/>
+                <property key="labeling/fontSize" value="11"/>
+                <property key="labeling/fontSizeInMapUnits" value="false"/>
+                <property key="labeling/fontStrikeout" value="false"/>
+                <property key="labeling/fontUnderline" value="false"/>
+                <property key="labeling/fontWeight" value="63"/>
+                <property key="labeling/fontWordSpacing" value="0"/>
+                <property key="labeling/formatNumbers" value="false"/>
+                <property key="labeling/isExpression" value="false"/>
+                <property key="labeling/labelOffsetInMapUnits" value="true"/>
+                <property key="labeling/labelPerPart" value="false"/>
+                <property key="labeling/leftDirectionSymbol" value="&lt;"/>
+                <property key="labeling/limitNumLabels" value="false"/>
+                <property key="labeling/maxCurvedCharAngleIn" value="20"/>
+                <property key="labeling/maxCurvedCharAngleOut" value="-20"/>
+                <property key="labeling/maxNumLabels" value="2000"/>
+                <property key="labeling/mergeLines" value="false"/>
+                <property key="labeling/minFeatureSize" value="0"/>
+                <property key="labeling/multilineAlign" value="0"/>
+                <property key="labeling/multilineHeight" value="1"/>
+                <property key="labeling/namedStyle" value="Medium"/>
+                <property key="labeling/obstacle" value="true"/>
+                <property key="labeling/placeDirectionSymbol" value="0"/>
+                <property key="labeling/placement" value="0"/>
+                <property key="labeling/placementFlags" value="0"/>
+                <property key="labeling/plussign" value="false"/>
+                <property key="labeling/preserveRotation" value="true"/>
+                <property key="labeling/previewBkgrdColor" value="#ffffff"/>
+                <property key="labeling/priority" value="5"/>
+                <property key="labeling/quadOffset" value="4"/>
+                <property key="labeling/reverseDirectionSymbol" value="false"/>
+                <property key="labeling/rightDirectionSymbol" value=">"/>
+                <property key="labeling/scaleMax" value="10000000"/>
+                <property key="labeling/scaleMin" value="1"/>
+                <property key="labeling/scaleVisibility" value="false"/>
+                <property key="labeling/shadowBlendMode" value="6"/>
+                <property key="labeling/shadowColorB" value="0"/>
+                <property key="labeling/shadowColorG" value="0"/>
+                <property key="labeling/shadowColorR" value="0"/>
+                <property key="labeling/shadowDraw" value="false"/>
+                <property key="labeling/shadowOffsetAngle" value="135"/>
+                <property key="labeling/shadowOffsetDist" value="1"/>
+                <property key="labeling/shadowOffsetGlobal" value="true"/>
+                <property key="labeling/shadowOffsetUnits" value="1"/>
+                <property key="labeling/shadowRadius" value="1.5"/>
+                <property key="labeling/shadowRadiusAlphaOnly" value="false"/>
+                <property key="labeling/shadowRadiusUnits" value="1"/>
+                <property key="labeling/shadowScale" value="100"/>
+                <property key="labeling/shadowTransparency" value="30"/>
+                <property key="labeling/shadowUnder" value="0"/>
+                <property key="labeling/shapeBlendMode" value="0"/>
+                <property key="labeling/shapeBorderColorA" value="255"/>
+                <property key="labeling/shapeBorderColorB" value="128"/>
+                <property key="labeling/shapeBorderColorG" value="128"/>
+                <property key="labeling/shapeBorderColorR" value="128"/>
+                <property key="labeling/shapeBorderWidth" value="0"/>
+                <property key="labeling/shapeBorderWidthUnits" value="1"/>
+                <property key="labeling/shapeDraw" value="false"/>
+                <property key="labeling/shapeFillColorA" value="255"/>
+                <property key="labeling/shapeFillColorB" value="255"/>
+                <property key="labeling/shapeFillColorG" value="255"/>
+                <property key="labeling/shapeFillColorR" value="255"/>
+                <property key="labeling/shapeJoinStyle" value="64"/>
+                <property key="labeling/shapeOffsetUnits" value="1"/>
+                <property key="labeling/shapeOffsetX" value="0"/>
+                <property key="labeling/shapeOffsetY" value="0"/>
+                <property key="labeling/shapeRadiiUnits" value="1"/>
+                <property key="labeling/shapeRadiiX" value="0"/>
+                <property key="labeling/shapeRadiiY" value="0"/>
+                <property key="labeling/shapeRotation" value="0"/>
+                <property key="labeling/shapeRotationType" value="0"/>
+                <property key="labeling/shapeSVGFile" value=""/>
+                <property key="labeling/shapeSizeType" value="0"/>
+                <property key="labeling/shapeSizeUnits" value="1"/>
+                <property key="labeling/shapeSizeX" value="0"/>
+                <property key="labeling/shapeSizeY" value="0"/>
+                <property key="labeling/shapeTransparency" value="0"/>
+                <property key="labeling/shapeType" value="0"/>
+                <property key="labeling/textColorA" value="255"/>
+                <property key="labeling/textColorB" value="0"/>
+                <property key="labeling/textColorG" value="0"/>
+                <property key="labeling/textColorR" value="0"/>
+                <property key="labeling/textTransp" value="0"/>
+                <property key="labeling/upsidedownLabels" value="0"/>
+                <property key="labeling/wrapChar" value=""/>
+                <property key="labeling/xOffset" value="0"/>
+                <property key="labeling/yOffset" value="0"/>
+            </customproperties>
+            <blendMode>0</blendMode>
+            <featureBlendMode>0</featureBlendMode>
+            <layerTransparency>0</layerTransparency>
+            <displayfield>NAME_0</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="Ubuntu"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
+            <edittypes>
+                <edittype labelontop="0" editable="1" type="0" name="ENGTYPE_1"/>
+                <edittype labelontop="0" editable="1" type="0" name="ID_0"/>
+                <edittype labelontop="0" editable="1" type="0" name="ID_1"/>
+                <edittype labelontop="0" editable="1" type="0" name="ISO"/>
+                <edittype labelontop="0" editable="1" type="0" name="NAME_0"/>
+                <edittype labelontop="0" editable="1" type="0" name="NAME_1"/>
+                <edittype labelontop="0" editable="1" type="0" name="NL_NAME_1"/>
+                <edittype labelontop="0" editable="1" type="0" name="TYPE_1"/>
+                <edittype labelontop="0" editable="1" type="0" name="VARNAME_1"/>
+            </edittypes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <editorlayout>generatedlayout</editorlayout>
+            <excludeAttributesWMS/>
+            <excludeAttributesWFS/>
+            <attributeactions/>
+        </maplayer>
+        <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" minLabelScale="0" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
+            <id>Matched_Indigenous_Lands_ProcessedResults20150528145506811</id>
+            <datasource>../Processed_Data/Matched_Indigenous_Lands_ProcessedResults.shp</datasource>
+            <title></title>
+            <abstract></abstract>
+            <keywordList>
+                <value></value>
+            </keywordList>
+            <layername>Matched_Indigenous_Lands_ProcessedResults</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+                    <srsid>3452</srsid>
+                    <srid>4326</srid>
+                    <authid>EPSG:4326</authid>
+                    <description>WGS 84</description>
+                    <projectionacronym>longlat</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>true</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <provider encoding="System">ogr</provider>
+            <previewExpression></previewExpression>
+            <vectorjoins/>
+            <renderer-v2 attr="demend_y" symbollevels="0" type="categorizedSymbol">
+                <categories>
+                    <category symbol="0" value="0" label="0"/>
+                    <category symbol="1" value="1997" label="1997"/>
+                    <category symbol="2" value="1998" label="1998"/>
+                    <category symbol="3" value="1999" label="1999"/>
+                    <category symbol="4" value="2000" label="2000"/>
+                    <category symbol="5" value="2001" label="2001"/>
+                    <category symbol="6" value="2002" label="2002"/>
+                    <category symbol="7" value="2003" label="2003"/>
+                    <category symbol="8" value="2004" label="2004"/>
+                    <category symbol="9" value="2005" label="2005"/>
+                    <category symbol="10" value="2006" label="2006"/>
+                    <category symbol="11" value="2007" label="2007"/>
+                    <category symbol="12" value="2008" label="2008"/>
+                    <category symbol="13" value="" label=""/>
+                </categories>
+                <symbols>
+                    <symbol alpha="1" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="173,173,173,255"/>
+                            <prop k="color_border" v="114,133,132,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="LinePatternFill" locked="1">
+                            <prop k="color" v="52,111,107,255"/>
+                            <prop k="distance" v="2"/>
+                            <prop k="distance_unit" v="MM"/>
+                            <prop k="line_width_unit" v="MM"/>
+                            <prop k="lineangle" v="45"/>
+                            <prop k="linewidth" v="0.1"/>
+                            <prop k="offset" v="1"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <symbol alpha="1" type="line" name="@0@1">
+                                <layer pass="0" class="SimpleLine" locked="0">
+                                    <prop k="capstyle" v="square"/>
+                                    <prop k="color" v="0,0,0,255"/>
+                                    <prop k="customdash" v="5;2"/>
+                                    <prop k="customdash_unit" v="MM"/>
+                                    <prop k="joinstyle" v="bevel"/>
+                                    <prop k="offset" v="0"/>
+                                    <prop k="offset_unit" v="MM"/>
+                                    <prop k="penstyle" v="no"/>
+                                    <prop k="use_custom_dash" v="0"/>
+                                    <prop k="width" v="0.26"/>
+                                    <prop k="width_unit" v="MM"/>
+                                </layer>
+                            </symbol>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="1">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="254,243,190,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="10">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="212,91,13,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="11">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="192,78,10,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="12">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="172,65,7,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="13">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="173,173,173,255"/>
+                            <prop k="color_border" v="114,133,132,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="LinePatternFill" locked="1">
+                            <prop k="color" v="52,111,107,255"/>
+                            <prop k="distance" v="2"/>
+                            <prop k="distance_unit" v="MM"/>
+                            <prop k="line_width_unit" v="MM"/>
+                            <prop k="lineangle" v="45"/>
+                            <prop k="linewidth" v="0.1"/>
+                            <prop k="offset" v="1"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <symbol alpha="1" type="line" name="@13@1">
+                                <layer pass="0" class="SimpleLine" locked="0">
+                                    <prop k="capstyle" v="square"/>
+                                    <prop k="color" v="0,0,0,255"/>
+                                    <prop k="customdash" v="5;2"/>
+                                    <prop k="customdash_unit" v="MM"/>
+                                    <prop k="joinstyle" v="bevel"/>
+                                    <prop k="offset" v="0"/>
+                                    <prop k="offset_unit" v="MM"/>
+                                    <prop k="penstyle" v="no"/>
+                                    <prop k="use_custom_dash" v="0"/>
+                                    <prop k="width" v="0.26"/>
+                                    <prop k="width_unit" v="MM"/>
+                                </layer>
+                            </symbol>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="2">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="254,231,168,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="3">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="254,219,147,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="4">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="254,202,118,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="5">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="254,182,87,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="6">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="254,162,56,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="7">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="248,144,36,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="8">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="236,126,28,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="9">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="225,108,20,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </symbols>
+                <source-symbol>
+                    <symbol alpha="1" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="177,232,117,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </source-symbol>
+                <colorramp type="gradient" name="[source]">
+                    <prop k="color1" v="255,255,212,255"/>
+                    <prop k="color2" v="153,52,4,255"/>
+                    <prop k="discrete" v="0"/>
+                    <prop k="stops" v="0.25;254,217,142,255:0.5;254,153,41,255:0.75;217,95,14,255"/>
+                </colorramp>
+                <rotation field=""/>
+                <sizescale field="" scalemethod="area"/>
+            </renderer-v2>
+            <customproperties>
+                <property key="labeling" value="pal"/>
+                <property key="labeling/addDirectionSymbol" value="false"/>
+                <property key="labeling/angleOffset" value="0"/>
+                <property key="labeling/blendMode" value="0"/>
+                <property key="labeling/bufferBlendMode" value="0"/>
+                <property key="labeling/bufferColorA" value="255"/>
+                <property key="labeling/bufferColorB" value="255"/>
+                <property key="labeling/bufferColorG" value="255"/>
+                <property key="labeling/bufferColorR" value="255"/>
+                <property key="labeling/bufferDraw" value="false"/>
+                <property key="labeling/bufferJoinStyle" value="64"/>
+                <property key="labeling/bufferNoFill" value="false"/>
+                <property key="labeling/bufferSize" value="1"/>
+                <property key="labeling/bufferSizeInMapUnits" value="false"/>
+                <property key="labeling/bufferTransp" value="0"/>
+                <property key="labeling/centroidWhole" value="false"/>
+                <property key="labeling/decimals" value="3"/>
+                <property key="labeling/displayAll" value="false"/>
+                <property key="labeling/dist" value="0"/>
+                <property key="labeling/distInMapUnits" value="false"/>
+                <property key="labeling/enabled" value="false"/>
+                <property key="labeling/fieldName" value="demend_y"/>
+                <property key="labeling/fontBold" value="true"/>
+                <property key="labeling/fontCapitals" value="0"/>
+                <property key="labeling/fontFamily" value="Ubuntu"/>
+                <property key="labeling/fontItalic" value="false"/>
+                <property key="labeling/fontLetterSpacing" value="0"/>
+                <property key="labeling/fontLimitPixelSize" value="false"/>
+                <property key="labeling/fontMaxPixelSize" value="10000"/>
+                <property key="labeling/fontMinPixelSize" value="3"/>
+                <property key="labeling/fontSize" value="11"/>
+                <property key="labeling/fontSizeInMapUnits" value="false"/>
+                <property key="labeling/fontStrikeout" value="false"/>
+                <property key="labeling/fontUnderline" value="false"/>
+                <property key="labeling/fontWeight" value="63"/>
+                <property key="labeling/fontWordSpacing" value="0"/>
+                <property key="labeling/formatNumbers" value="false"/>
+                <property key="labeling/isExpression" value="false"/>
+                <property key="labeling/labelOffsetInMapUnits" value="true"/>
+                <property key="labeling/labelPerPart" value="false"/>
+                <property key="labeling/leftDirectionSymbol" value="&lt;"/>
+                <property key="labeling/limitNumLabels" value="false"/>
+                <property key="labeling/maxCurvedCharAngleIn" value="20"/>
+                <property key="labeling/maxCurvedCharAngleOut" value="-20"/>
+                <property key="labeling/maxNumLabels" value="2000"/>
+                <property key="labeling/mergeLines" value="false"/>
+                <property key="labeling/minFeatureSize" value="0"/>
+                <property key="labeling/multilineAlign" value="0"/>
+                <property key="labeling/multilineHeight" value="1"/>
+                <property key="labeling/namedStyle" value="Medium"/>
+                <property key="labeling/obstacle" value="true"/>
+                <property key="labeling/placeDirectionSymbol" value="0"/>
+                <property key="labeling/placement" value="0"/>
+                <property key="labeling/placementFlags" value="0"/>
+                <property key="labeling/plussign" value="false"/>
+                <property key="labeling/preserveRotation" value="true"/>
+                <property key="labeling/previewBkgrdColor" value="#ffffff"/>
+                <property key="labeling/priority" value="5"/>
+                <property key="labeling/quadOffset" value="4"/>
+                <property key="labeling/reverseDirectionSymbol" value="false"/>
+                <property key="labeling/rightDirectionSymbol" value=">"/>
+                <property key="labeling/scaleMax" value="10000000"/>
+                <property key="labeling/scaleMin" value="1"/>
+                <property key="labeling/scaleVisibility" value="false"/>
+                <property key="labeling/shadowBlendMode" value="6"/>
+                <property key="labeling/shadowColorB" value="0"/>
+                <property key="labeling/shadowColorG" value="0"/>
+                <property key="labeling/shadowColorR" value="0"/>
+                <property key="labeling/shadowDraw" value="false"/>
+                <property key="labeling/shadowOffsetAngle" value="135"/>
+                <property key="labeling/shadowOffsetDist" value="1"/>
+                <property key="labeling/shadowOffsetGlobal" value="true"/>
+                <property key="labeling/shadowOffsetUnits" value="1"/>
+                <property key="labeling/shadowRadius" value="1.5"/>
+                <property key="labeling/shadowRadiusAlphaOnly" value="false"/>
+                <property key="labeling/shadowRadiusUnits" value="1"/>
+                <property key="labeling/shadowScale" value="100"/>
+                <property key="labeling/shadowTransparency" value="30"/>
+                <property key="labeling/shadowUnder" value="0"/>
+                <property key="labeling/shapeBlendMode" value="0"/>
+                <property key="labeling/shapeBorderColorA" value="255"/>
+                <property key="labeling/shapeBorderColorB" value="128"/>
+                <property key="labeling/shapeBorderColorG" value="128"/>
+                <property key="labeling/shapeBorderColorR" value="128"/>
+                <property key="labeling/shapeBorderWidth" value="0"/>
+                <property key="labeling/shapeBorderWidthUnits" value="1"/>
+                <property key="labeling/shapeDraw" value="false"/>
+                <property key="labeling/shapeFillColorA" value="255"/>
+                <property key="labeling/shapeFillColorB" value="255"/>
+                <property key="labeling/shapeFillColorG" value="255"/>
+                <property key="labeling/shapeFillColorR" value="255"/>
+                <property key="labeling/shapeJoinStyle" value="64"/>
+                <property key="labeling/shapeOffsetUnits" value="1"/>
+                <property key="labeling/shapeOffsetX" value="0"/>
+                <property key="labeling/shapeOffsetY" value="0"/>
+                <property key="labeling/shapeRadiiUnits" value="1"/>
+                <property key="labeling/shapeRadiiX" value="0"/>
+                <property key="labeling/shapeRadiiY" value="0"/>
+                <property key="labeling/shapeRotation" value="0"/>
+                <property key="labeling/shapeRotationType" value="0"/>
+                <property key="labeling/shapeSVGFile" value=""/>
+                <property key="labeling/shapeSizeType" value="0"/>
+                <property key="labeling/shapeSizeUnits" value="1"/>
+                <property key="labeling/shapeSizeX" value="0"/>
+                <property key="labeling/shapeSizeY" value="0"/>
+                <property key="labeling/shapeTransparency" value="0"/>
+                <property key="labeling/shapeType" value="0"/>
+                <property key="labeling/textColorA" value="255"/>
+                <property key="labeling/textColorB" value="0"/>
+                <property key="labeling/textColorG" value="0"/>
+                <property key="labeling/textColorR" value="0"/>
+                <property key="labeling/textTransp" value="0"/>
+                <property key="labeling/upsidedownLabels" value="0"/>
+                <property key="labeling/wrapChar" value=""/>
+                <property key="labeling/xOffset" value="0"/>
+                <property key="labeling/yOffset" value="0"/>
+            </customproperties>
+            <blendMode>0</blendMode>
+            <featureBlendMode>0</featureBlendMode>
+            <layerTransparency>0</layerTransparency>
+            <displayfield>SP_ID</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="Ubuntu"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
+            <edittypes>
+                <edittype labelontop="0" editable="1" type="0" name="Elevation"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1982"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1983"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1984"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1985"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1986"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1987"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1988"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1989"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1990"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1991"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1992"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1993"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1994"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1995"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1996"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1997"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1998"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_1999"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2000"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2001"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2002"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2003"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2004"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2005"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2006"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2007"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2008"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2009"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2010"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2011"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2012"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2013"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxL_2014"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1982"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1983"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1984"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1985"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1986"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1987"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1988"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1989"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1990"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1991"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1992"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1993"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1994"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1995"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1996"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1997"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1998"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_1999"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2000"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2001"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2002"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2003"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2004"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2005"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2006"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2007"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2008"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2009"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2010"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2011"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2012"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2013"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxN_2014"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1900"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1901"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1902"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1903"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1904"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1905"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1906"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1907"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1908"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1909"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1910"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1911"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1912"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1913"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1914"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1915"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1916"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1917"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1918"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1919"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1920"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1921"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1922"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1923"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1924"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1925"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1926"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1927"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1928"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1929"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1930"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1931"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1932"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1933"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1934"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1935"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1936"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1937"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1938"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1939"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1940"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1941"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1942"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1943"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1944"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1945"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1946"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1947"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1948"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1949"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1950"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1951"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1952"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1953"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1954"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1955"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1956"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1957"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1958"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1959"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1960"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1961"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1962"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1963"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1964"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1965"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1966"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1967"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1968"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1969"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1970"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1971"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1972"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1973"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1974"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1975"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1976"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1977"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1978"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1979"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1980"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1981"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1982"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1983"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1984"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1985"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1986"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1987"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1988"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1989"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1990"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1991"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1992"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1993"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1994"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1995"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1996"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1997"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1998"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_1999"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_2000"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_2001"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_2002"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_2003"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_2004"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_2005"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_2006"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_2007"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_2008"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_2009"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxP_2010"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1900"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1901"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1902"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1903"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1904"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1905"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1906"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1907"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1908"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1909"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1910"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1911"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1912"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1913"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1914"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1915"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1916"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1917"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1918"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1919"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1920"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1921"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1922"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1923"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1924"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1925"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1926"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1927"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1928"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1929"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1930"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1931"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1932"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1933"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1934"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1935"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1936"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1937"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1938"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1939"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1940"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1941"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1942"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1943"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1944"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1945"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1946"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1947"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1948"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1949"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1950"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1951"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1952"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1953"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1954"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1955"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1956"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1957"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1958"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1959"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1960"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1961"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1962"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1963"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1964"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1965"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1966"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1967"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1968"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1969"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1970"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1971"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1972"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1973"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1974"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1975"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1976"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1977"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1978"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1979"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1980"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1981"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1982"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1983"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1984"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1985"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1986"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1987"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1988"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1989"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1990"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1991"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1992"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1993"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1994"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1995"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1996"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1997"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1998"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_1999"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_2000"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_2001"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_2002"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_2003"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_2004"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_2005"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_2006"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_2007"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_2008"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_2009"/>
+                <edittype labelontop="0" editable="1" type="0" name="MaxT_2010"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1982"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1983"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1984"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1985"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1986"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1987"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1988"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1989"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1990"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1991"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1992"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1993"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1994"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1995"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1996"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1997"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1998"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_1999"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2000"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2001"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2002"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2003"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2004"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2005"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2006"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2007"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2008"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2009"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2010"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2011"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2012"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2013"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanL_2014"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1982"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1983"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1984"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1985"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1986"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1987"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1988"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1989"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1990"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1991"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1992"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1993"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1994"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1995"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1996"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1997"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1998"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_1999"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2000"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2001"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2002"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2003"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2004"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2005"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2006"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2007"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2008"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2009"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2010"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2011"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2012"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2013"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanN_2014"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1900"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1901"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1902"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1903"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1904"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1905"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1906"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1907"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1908"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1909"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1910"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1911"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1912"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1913"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1914"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1915"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1916"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1917"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1918"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1919"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1920"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1921"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1922"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1923"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1924"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1925"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1926"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1927"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1928"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1929"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1930"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1931"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1932"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1933"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1934"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1935"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1936"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1937"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1938"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1939"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1940"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1941"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1942"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1943"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1944"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1945"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1946"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1947"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1948"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1949"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1950"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1951"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1952"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1953"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1954"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1955"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1956"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1957"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1958"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1959"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1960"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1961"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1962"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1963"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1964"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1965"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1966"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1967"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1968"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1969"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1970"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1971"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1972"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1973"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1974"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1975"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1976"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1977"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1978"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1979"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1980"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1981"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1982"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1983"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1984"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1985"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1986"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1987"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1988"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1989"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1990"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1991"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1992"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1993"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1994"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1995"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1996"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1997"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1998"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_1999"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_2000"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_2001"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_2002"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_2003"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_2004"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_2005"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_2006"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_2007"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_2008"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_2009"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanP_2010"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1900"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1901"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1902"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1903"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1904"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1905"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1906"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1907"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1908"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1909"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1910"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1911"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1912"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1913"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1914"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1915"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1916"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1917"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1918"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1919"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1920"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1921"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1922"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1923"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1924"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1925"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1926"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1927"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1928"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1929"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1930"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1931"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1932"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1933"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1934"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1935"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1936"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1937"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1938"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1939"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1940"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1941"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1942"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1943"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1944"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1945"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1946"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1947"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1948"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1949"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1950"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1951"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1952"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1953"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1954"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1955"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1956"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1957"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1958"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1959"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1960"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1961"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1962"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1963"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1964"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1965"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1966"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1967"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1968"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1969"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1970"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1971"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1972"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1973"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1974"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1975"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1976"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1977"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1978"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1979"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1980"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1981"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1982"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1983"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1984"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1985"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1986"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1987"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1988"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1989"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1990"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1991"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1992"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1993"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1994"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1995"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1996"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1997"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1998"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_1999"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_2000"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_2001"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_2002"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_2003"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_2004"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_2005"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_2006"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_2007"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_2008"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_2009"/>
+                <edittype labelontop="0" editable="1" type="0" name="MeanT_2010"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1900"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1901"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1902"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1903"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1904"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1905"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1906"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1907"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1908"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1909"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1910"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1911"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1912"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1913"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1914"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1915"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1916"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1917"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1918"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1919"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1920"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1921"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1922"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1923"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1924"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1925"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1926"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1927"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1928"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1929"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1930"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1931"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1932"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1933"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1934"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1935"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1936"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1937"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1938"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1939"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1940"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1941"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1942"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1943"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1944"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1945"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1946"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1947"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1948"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1949"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1950"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1951"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1952"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1953"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1954"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1955"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1956"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1957"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1958"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1959"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1960"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1961"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1962"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1963"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1964"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1965"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1966"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1967"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1968"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1969"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1970"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1971"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1972"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1973"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1974"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1975"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1976"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1977"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1978"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1979"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1980"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1981"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1982"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1983"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1984"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1985"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1986"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1987"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1988"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1989"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1990"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1991"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1992"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1993"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1994"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1995"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1996"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1997"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1998"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_1999"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_2000"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_2001"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_2002"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_2003"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_2004"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_2005"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_2006"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_2007"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_2008"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_2009"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinP_2010"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1900"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1901"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1902"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1903"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1904"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1905"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1906"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1907"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1908"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1909"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1910"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1911"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1912"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1913"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1914"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1915"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1916"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1917"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1918"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1919"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1920"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1921"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1922"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1923"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1924"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1925"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1926"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1927"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1928"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1929"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1930"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1931"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1932"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1933"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1934"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1935"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1936"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1937"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1938"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1939"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1940"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1941"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1942"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1943"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1944"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1945"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1946"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1947"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1948"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1949"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1950"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1951"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1952"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1953"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1954"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1955"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1956"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1957"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1958"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1959"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1960"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1961"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1962"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1963"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1964"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1965"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1966"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1967"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1968"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1969"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1970"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1971"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1972"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1973"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1974"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1975"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1976"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1977"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1978"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1979"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1980"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1981"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1982"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1983"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1984"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1985"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1986"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1987"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1988"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1989"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1990"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1991"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1992"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1993"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1994"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1995"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1996"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1997"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1998"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_1999"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_2000"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_2001"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_2002"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_2003"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_2004"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_2005"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_2006"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_2007"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_2008"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_2009"/>
+                <edittype labelontop="0" editable="1" type="0" name="MinT_2010"/>
+                <edittype labelontop="0" editable="1" type="0" name="Pop_1990"/>
+                <edittype labelontop="0" editable="1" type="0" name="Pop_1995"/>
+                <edittype labelontop="0" editable="1" type="0" name="Pop_2000"/>
+                <edittype labelontop="0" editable="1" type="0" name="Riv_Dist"/>
+                <edittype labelontop="0" editable="1" type="0" name="Road_dist"/>
+                <edittype labelontop="0" editable="1" type="0" name="SP_ID"/>
+                <edittype labelontop="0" editable="1" type="0" name="Slope"/>
+                <edittype labelontop="0" editable="1" type="0" name="UF"/>
+                <edittype labelontop="0" editable="1" type="0" name="UrbTravTim"/>
+                <edittype labelontop="0" editable="1" type="0" name="apprend_m"/>
+                <edittype labelontop="0" editable="1" type="0" name="apprend_y"/>
+                <edittype labelontop="0" editable="1" type="0" name="demend_m"/>
+                <edittype labelontop="0" editable="1" type="0" name="demend_y"/>
+                <edittype labelontop="0" editable="1" type="0" name="id"/>
+                <edittype labelontop="0" editable="1" type="0" name="pop"/>
+                <edittype labelontop="0" editable="1" type="0" name="regend_m"/>
+                <edittype labelontop="0" editable="1" type="0" name="regend_y"/>
+                <edittype labelontop="0" editable="1" type="0" name="reu_id"/>
+                <edittype labelontop="0" editable="1" type="0" name="stagenum"/>
+                <edittype labelontop="0" editable="1" type="0" name="terrai_are"/>
+                <edittype labelontop="0" editable="1" type="0" name="terrai_nom"/>
+            </edittypes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <editorlayout>generatedlayout</editorlayout>
+            <excludeAttributesWMS/>
+            <excludeAttributesWFS/>
+            <attributeactions/>
+        </maplayer>
+    </projectlayers>
+    <properties>
+        <SpatialRefSys>
+            <ProjectCrs type="QString">EPSG:4326</ProjectCrs>
+        </SpatialRefSys>
+        <Paths>
+            <Absolute type="bool">false</Absolute>
+        </Paths>
+        <Gui>
+            <SelectionColorBluePart type="int">0</SelectionColorBluePart>
+            <CanvasColorGreenPart type="int">255</CanvasColorGreenPart>
+            <CanvasColorRedPart type="int">255</CanvasColorRedPart>
+            <SelectionColorRedPart type="int">255</SelectionColorRedPart>
+            <SelectionColorAlphaPart type="int">255</SelectionColorAlphaPart>
+            <SelectionColorGreenPart type="int">255</SelectionColorGreenPart>
+            <CanvasColorBluePart type="int">255</CanvasColorBluePart>
+        </Gui>
+        <PositionPrecision>
+            <DecimalPlaces type="int">2</DecimalPlaces>
+            <Automatic type="bool">true</Automatic>
+        </PositionPrecision>
+    </properties>
+</qgis>

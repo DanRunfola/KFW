@@ -7,7 +7,7 @@ library(RColorBrewer)
 loadLibs()
 
 
-shpfile = "Processed_Data/KFW_newNDVI.shp"
+shpfile = "Processed_Data/Matched_Indigenous_Lands_ProcessedResults.shp"
 
 dta_Shp = readShapePoly(shpfile)
 
@@ -55,9 +55,13 @@ MeanL_1995 + Riv_Dist + Road_dist"
 
 psmRes <- SAT::SpatialCausalPSM(dta_Shp,mtd="logit",psmModel,drop="support",visual=TRUE)
 
+test <- psmRes$data
+
+psmRes <- test
+
 pre_Moran <- SAT::PSMdistDecay(dta=psmRes,psm_col="PSM_trtProb",start=1,end=500,h=10)
 
-drop_set<- c(drop_unmatched=TRUE,drop_method="None",drop_thresh=0.25)
+drop_set<- c(drop_unmatched=TRUE,drop_method="SD",drop_thresh=0.25)
 psm_Pairs <- SAT(dta = psmRes, mtd = "fastNN",constraints=NULL,psm_eq = psmModel, ids = "id", drop_opts = drop_set, visual="TRUE", TrtBinColName="TrtBin")
 
 psm_test <- psm_Pairs[psm_Pairs@data$PSM_match_ID<= 40,]
@@ -75,28 +79,31 @@ psm_Long <- BuildTimeSeries(dta=psm_Pairs,idField="reu_id",varList_pre=varList,1
 psm_Long$Year <- as.numeric(psm_Long$Year)
 #Panel Models
 #psm_Long$TrtPair <- as.numeric(psm_Long$PSM_match_ID) * psm_Long$TrtMnt
-pModelA <- "MeanL_ ~ TrtMnt + MeanT_ + MeanP_ + Pop_ + MaxT_ + MaxP_ + MinT_ + MinP_  + factor(reu_id) + Year"
 
-panelModel <- Stage2PSM(pModelA,psm_Long,type="cmreg", table_out=TRUE, opts=c("reu_id","Year"))
-
-ViewTimeSeries(dta=dta_Shp,IDfield="reu_id",TrtField="TrtBin",idPre="MaxL_[0-9][0-9][0-9][0-9]")
+pModelMean_C_fit <- Stage2PSM(pModelMean_C ,psm_Long,type="cmreg", table_out=TRUE, opts=c("reu_id","Year"))
 
 
 
+stargazer(pModelMean_A_fit $cmreg,pModelMean_B_fit $cmreg,pModelMean_C_fit $cmreg,type="html",align=TRUE,keep=c("TrtMnt","MeanT_","MeanP_","Pop_","MaxT_","MaxP_","MinT_","MinP_","Year"),
+          covariate.labels=c("TrtMnt","MeanT","MeanP","Pop","MaxT","MaxP","MinT","MinP","Year"),
+          omit.stat=c("f","ser"),
+          title="Regression Results",
+          dep.var.labels=c("Mean NDVI")
+)
 
-stargazer(panelModel$cmreg,type="html",align=TRUE,keep=c("TrtMnt","MeanT_","MeanP_","Pop_","MaxT_","MaxP_","MinT_","MinP_"),
-                         covariate.labels=c("TrtMnt","MeanT","MeanP","Pop","MaxT","MaxP","MinT","MinP"),
-                         omit.stat=c("f","ser"),
-                         title="Regression Results",
-                         dep.var.labels=c("Mean NDVI")
-                         )
+
+pModelMax_A <- "MaxL_ ~ TrtMnt + factor(reu_id) "
+pModelMax_B <- "MaxL_ ~ TrtMnt + MeanT_ + MeanP_ + Pop_ + MaxT_ + MaxP_ + MinT_ + MinP_  + factor(reu_id) "
+pModelMax_C <- "MaxL_ ~ TrtMnt + MeanT_ + MeanP_ + Pop_ + MaxT_ + MaxP_ + MinT_ + MinP_  + factor(reu_id) + Year"
+
+pModelMax_A_fit <- Stage2PSM(pModelMax_A ,psm_Long,type="cmreg", table_out=TRUE, opts=c("reu_id","Year"))
+pModelMax_B_fit <- Stage2PSM(pModelMax_B ,psm_Long,type="cmreg", table_out=TRUE, opts=c("reu_id","Year"))
+pModelMax_C_fit <- Stage2PSM(pModelMax_C ,psm_Long,type="cmreg", table_out=TRUE, opts=c("reu_id","Year"))
 
 
-pModelB <- "MaxL_ ~ TrtMnt + MeanT_ + MeanP_ + Pop_ + MaxT_ + MaxP_ + MinT_ + MinP_  + factor(reu_id):Year_num"
 
-panelModelB <- Stage2PSM(pModelB,psm_Long,type="cmreg", table_out=TRUE, opts=c("reu_id","Year"))
-stargazer(panelModelB$cmreg,type="html",align=TRUE,keep=c("TrtMnt","MeanT_","MeanP_","Pop_","MaxT_","MaxP_","MinT_","MinP_"),
-          covariate.labels=c("TrtMnt","MeanT","MeanP","Pop","MaxT","MaxP","MinT","MinP"),
+stargazer(pModelMax_A_fit $cmreg,pModelMax_B_fit $cmreg,pModelMax_C_fit $cmreg,type="html",align=TRUE,keep=c("TrtMnt","MeanT_","MeanP_","Pop_","MaxT_","MaxP_","MinT_","MinP_","Year"),
+          covariate.labels=c("TrtMnt","MeanT","MeanP","Pop","MaxT","MaxP","MinT","MinP","Year"),
           omit.stat=c("f","ser"),
           title="Regression Results",
           dep.var.labels=c("Max NDVI")
@@ -107,4 +114,9 @@ stargazer(panelModelB$cmreg,type="html",align=TRUE,keep=c("TrtMnt","MeanT_","Mea
 #SAT::ViewTimeSeries(dta=dta_Shp,IDfield="reu_id",TrtField="TrtBin",idPre="MeanL_[0-9][0-9][0-9][0-9]")
 #SAT::ViewTimeSeries(dta=dta_Shp,IDfield="reu_id",TrtField="TrtBin",idPre="NDVI[0-9][0-9][0-9][0-9]")
 #stargazer(test["Standardized"],test["Unstandardized"], title="Regression Results", type="html",align=TRUE)
+
+# psm_Long$wgt <- psm_Long$terrai_are
+# weight_test <- lm(pModelB,psm_Long,weights=wgt)
+# var <- cluster.vcov(weight_test,cbind(psm_Long$reu_id,psm_Long$Year))
+# coeftest(weight_test,var)
 
