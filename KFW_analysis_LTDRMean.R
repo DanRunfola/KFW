@@ -6,9 +6,10 @@ library(RColorBrewer)
 #load SAT libraries
 loadLibs()
 
-shpfile = "/Users/rbtrichler/Desktop/Matched_Indigenous_Lands_DemResults_LTDR.shp"
+#shpfile="/Users/rbtrichler/Documents/AidData/Git Repos/KFW_Amazon/processed_data/kfw_analysis_inputs.shp"
+shpfile = "/Users/rbtrichler/Desktop/MatchedIndigLands_LTDR/Matched_Indigenous_Lands_DemResults_LTDR.shp"
 dta_Shp = readShapePoly(shpfile)
-View(dta_Shp)
+#View(dta_Shp)
 #Drop out a few units
 #These units are being dropped due to issues with the historic data
 #Specifically, effects of large water bodies and large areas of deforestation (pre-existing)
@@ -51,25 +52,26 @@ dta_Shp$post_trend_precip_95_01 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9]
 dta_Shp$post_trend_precip_01_10 <- timeRangeTrend(dta_Shp,"MeanP_[0-9][0-9][0-9][0-9]",2001,2010,"SP_ID")
 
 #Make a binary for ever vs. never
-# dta_Shp@data["TrtBin"] <- 0
-# dta_Shp@data$NA_check <- 0
-# dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
-# dta_Shp@data$TrtBin[dta_Shp@data$NA_check != 1] <- 1
-# demtable <- table(dta_Shp@data$TrtBin)
-# View(demtable)
 
-# Make a binary to test treatment..
 dta_Shp@data["TrtBin"] <- 0
-dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
-dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
-
-#Remove units that did not ever receive any treatment (within-sample test)
 dta_Shp@data$NA_check <- 0
 dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
-int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
-dta_Shp <- int_Shp
+dta_Shp@data$TrtBin[dta_Shp@data$NA_check != 1] <- 1
 demtable <- table(dta_Shp@data$TrtBin)
 View(demtable)
+
+# Make a binary to test treatment..
+# dta_Shp@data["TrtBin"] <- 0
+# dta_Shp@data$TrtBin[dta_Shp@data$demend_y <= 2001] <- 1
+# dta_Shp@data$TrtBin[(dta_Shp@data$demend_m > 4) & (dta_Shp@data$demend_y==2001)] <- 0
+# 
+# #Remove units that did not ever receive any treatment (within-sample test)
+# dta_Shp@data$NA_check <- 0
+# dta_Shp@data$NA_check[is.na(dta_Shp@data$demend_y)] <- 1
+# int_Shp <- dta_Shp[dta_Shp@data$NA_check != 1,]
+# dta_Shp <- int_Shp
+# demtable <- table(dta_Shp@data$TrtBin)
+# View(demtable)
 
 psmModel <-  "TrtBin ~ terrai_are + Pop_1990 + MeanT_1995 + pre_trend_temp_mean + pre_trend_temp_min + 
 pre_trend_temp_max + MeanP_1995 + pre_trend_precip_min + 

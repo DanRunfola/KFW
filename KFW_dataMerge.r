@@ -1,4 +1,4 @@
-library(GISTools)
+library(maptools)
 library(reshape)
 library(splitstackshape)
 library(ggplot2)
@@ -14,7 +14,7 @@ cln_Shp <- src_Shp[,c("terrai_nom","terrai_are","reu_id","id","UF", "pop","demen
 "apprend_m","apprend_y","regend_m","regend_y","stagenum")]
 
 #Population -------------------------------------------
-GPW_pop <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/gpw/extract_merge.csv"
+GPW_pop <- "input_data/sciclone_extracts/GPW_extract_merge.csv"
 GPW_pop <- read.csv(GPW_pop)
 #Rename the columns for easier interpretation later..
 colnames(GPW_pop)[2] <- "Pop_1990"
@@ -26,7 +26,7 @@ kfw.SPDF <- merge(cln_Shp, GPW_pop, by.x="id", by.y="id")
 #NDVI -------------------------------------------------
 #Historic GIMMS NDVI
 GIMMS_hist <- NA
-GIMMS_hist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/historic_ndvi/historic_ndvi_SIMULATED_yearly.csv"
+#GIMMS_hist <- "/mnt/sciclone-aiddata/REU/projects/kfw/extracts/historic_ndvi/historic_ndvi_SIMULATED_yearly.csv"
 GIMMS_hist <- read.csv(GIMMS_hist)
 #Rename columns...
 for (i in 2:length(GIMMS_hist))
